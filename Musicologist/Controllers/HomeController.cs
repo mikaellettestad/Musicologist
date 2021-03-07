@@ -16,38 +16,40 @@ namespace Musicologist.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly UserManager<ApplicationUser> _userManager;
+        //private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserRepository _userRepository;
         private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger, UserManager<ApplicationUser> userManager, IUserRepository userRepository, ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, 
+            //UserManager<ApplicationUser> userManager, 
+            IUserRepository userRepository, ApplicationDbContext context)
         {
             _logger = logger;
-            _userManager = userManager;
+            //_userManager = userManager;
             _userRepository = userRepository;
             _context = context;
         }
 
         public IActionResult Index()
         {
-            var userId = _userManager.GetUserId(User);
+            //var userId = _userManager.GetUserId(User);
+            
+            //var user = _context.ApplicationUsers.SingleOrDefault(x => x.Id == "1");
 
-            var user = _context.ApplicationUsers.SingleOrDefault(x => x.Id == userId);
+            //if (user != null)
+            //{
 
-            if (user != null)
-            {
+            //    var userStatistics = new UserStatistics();
 
-                var userStatistics = new UserStatistics();
+            //    userStatistics.XPGainedTotal = 890;
 
-                userStatistics.XPGainedTotal = 890;
+            //    user.UserStatistics = userStatistics;
 
-                user.UserStatistics = userStatistics;
+            //    _context.Update(user);
 
-                _context.Update(user);
+            //    _context.SaveChanges();
 
-                _context.SaveChanges();
-
-            }
+            //}
             
             return View();
         }
