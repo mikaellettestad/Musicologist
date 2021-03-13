@@ -1,15 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Musicologist.Data;
 using Musicologist.Models;
-using Musicologist.Repositories;
 using Musicologist.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Musicologist.Controllers
 {

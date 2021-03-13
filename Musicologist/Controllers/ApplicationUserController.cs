@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
 using Musicologist.ViewModels;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Musicologist.Controllers
@@ -30,8 +29,6 @@ namespace Musicologist.Controllers
 
             var applicationUser = _applicationUserRepository.GetUser(userId);
 
-            //
-
             var model = new ApplicationUserViewModel();
 
             model.CurrentApplicationUser = _applicationUserRepository.GetUser(userId)
@@ -41,8 +38,6 @@ namespace Musicologist.Controllers
                     Courses = x.Courses.Select(c => new ApplicationUserViewModel.Course { Title = c.Title }).ToList(),
                     UserStatistics = new ApplicationUserViewModel.UserStatistics { XPGainedTotal = x.UserStatistics.XPGainedTotal }
                 }).SingleOrDefault();
-
-            //
 
             return View(model);
         }
