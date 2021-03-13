@@ -1,25 +1,21 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Musicologist.Data;
 using Musicologist.Models;
-using Musicologist.Repositories;
 using Musicologist.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
+using Musicologist.ViewModels;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Musicologist.Controllers
 {
-    public class HomeController : Controller
+    public class ApplicationUserController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IApplicationUserRepository _applicationUserRepository;
 
-        public HomeController(ILogger<HomeController> logger,
+        public ApplicationUserController(ILogger<HomeController> logger,
             UserManager<ApplicationUser> userManager,
             IApplicationUserRepository applicationUserRepository)
         {
@@ -34,18 +30,21 @@ namespace Musicologist.Controllers
 
             var applicationUser = _applicationUserRepository.GetUser(userId);
 
-            return View();
-        }
+            //
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+            var model = new ApplicationUserViewModel();
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            model.CurrentApplicationUser = _applicationUserRepository.GetUser(userId)
+                .Select(x => new ApplicationUserViewModel.ApplicationUser
+                {
+                    Email = x.Email,
+                    Courses = x.Courses.Select(c => new ApplicationUserViewModel.Course { Title = c.Title }).ToList(),
+                    UserStatistics = new ApplicationUserViewModel.UserStatistics { XPGainedTotal = x.UserStatistics.XPGainedTotal }
+                }).SingleOrDefault();
+
+            //
+
+            return View(model);
         }
     }
 }

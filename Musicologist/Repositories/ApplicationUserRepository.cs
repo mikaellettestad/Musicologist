@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Musicologist.Data;
 using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
@@ -10,19 +11,20 @@ using System.Threading.Tasks;
 
 namespace Musicologist.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class ApplicationUserRepository : IApplicationUserRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public UserRepository(ApplicationDbContext context)
+        public ApplicationUserRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public ApplicationUser GetUser(string Id)
+        public IQueryable<ApplicationUser> GetUser(string Id)
         {
-
-            return null;
+            return _context.ApplicationUsers.Where(x => x.Id == Id)
+                .Include(x => x.Courses)
+                .Include(x => x.UserStatistics);
         }
     }
 }
