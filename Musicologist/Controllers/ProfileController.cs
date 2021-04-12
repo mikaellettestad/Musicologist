@@ -8,13 +8,13 @@ using System.Linq;
 
 namespace Musicologist.Controllers
 {
-    public class ApplicationUserController : Controller
+    public class ProfileController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IApplicationUserRepository _applicationUserRepository;
 
-        public ApplicationUserController(ILogger<HomeController> logger,
+        public ProfileController(ILogger<HomeController> logger,
             UserManager<ApplicationUser> userManager,
             IApplicationUserRepository applicationUserRepository)
         {
