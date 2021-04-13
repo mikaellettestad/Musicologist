@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Musicologist.Data;
+using Musicologist.Models;
 
 namespace Musicologist
 {
@@ -13,7 +11,27 @@ namespace Musicologist
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            //CreateHostBuilder(args).Build().Run();
+
+            var iHost = CreateHostBuilder(args).Build();
+
+            InitializeDb(iHost);
+
+            iHost.Run();
+        }
+
+        private static void InitializeDb(IHost iHost)
+        {
+            using (var scope = iHost.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+
+                var context = services.GetRequiredService<ApplicationDbContext>();
+
+                var database = new DatabaseInitializer();
+
+                database.Initialize(context, services.GetRequiredService<UserManager<ApplicationUser>>());
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
