@@ -79,11 +79,8 @@ namespace Musicologist.Controllers
         {
             var applicationUser = _applicationUserRepository.GetUser(_userManager.GetUserId(User)).SingleOrDefault();
 
-            //var token = await _userManager.GenerateChangeEmailTokenAsync(applicationUser, currentApplicationUser.Email);
-
-            //var result = await _userManager.ChangeEmailAsync(applicationUser, currentApplicationUser.Email, token);
-
             applicationUser.UserName = currentApplicationUser.Email;
+
             applicationUser.Email = currentApplicationUser.Email;
 
             var result = await _userManager.UpdateAsync(applicationUser);
