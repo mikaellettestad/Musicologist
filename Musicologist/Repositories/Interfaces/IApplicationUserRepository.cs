@@ -9,6 +9,7 @@ namespace Musicologist.Repositories.Interfaces
 {
     public interface IApplicationUserRepository
     {
-        IQueryable<ApplicationUser> GetUser(string Id);
+        IQueryable<ApplicationUser> GetUserProfile(string Id);
+        IQueryable<CourseUser> GetUserCourses(string Id);
     }
 }

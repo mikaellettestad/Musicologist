@@ -26,7 +26,7 @@ namespace Musicologist.Controllers
         {
             string userId = _userManager.GetUserId(User);
 
-            var applicationUser = _applicationUserRepository.GetUser(userId);
+            var applicationUser = _applicationUserRepository.GetUserProfile(userId);
 
             return View();
         }

@@ -1,33 +1,18 @@
 ﻿@model Musicologist.ViewModels.ApplicationUserViewModel
 
-<h3>ApplicationUser: @Model.CurrentApplicationUser.Email</h3>
-
-<h3>XPGainedTotal: @Model.CurrentApplicationUser.UserStatistics.XPGainedTotal</h3>
-
-<h1>Edit</h1>
-
 @if (Model.ErrorMessage != "") { <h1>@Model.ErrorMessage</h1> }
 
 @if (Model.ConfirmationMessage != "") { <h1>@Model.ConfirmationMessage</h1> }
 
 <div class="container">
-
     <div class="row margin-bottom-25">
-        <div class="col-xl-12">
-
-            <h2>Information</h2>
-        </div>
-    </div>
-    <div class="row margin-bottom-25">
-        <div class="col-xl-2">
+        <div class="col-sm-4 col-md-3 col-lg-2">
             <img src="/img/profile-picture-avatar-3.jpg" id="profile-image" class="img">
         </div>
         <div class="col-xl-10">
             <div class="col-xg-10">
                 <button type="button" class="btn btn-secondary">Change</button>
-                <button type="button" class="btn btn-danger">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
+                <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
             </div>
         </div>
     </div>

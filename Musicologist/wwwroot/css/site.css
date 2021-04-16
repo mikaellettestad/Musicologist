@@ -1,6 +1,39 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+.zoom {
+    transition: transform .1s;
+}
+
+    .zoom:hover {
+        transform: scale(1.1);
+        z-index: 1;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
+        cursor: pointer;
+    }
+
+.course-title {
+    position: absolute;
+    height: 50px;
+    width: 100%;
+    background-color: rgb(128, 128, 128, 0.8);
+    top: 0px;
+    left: 0px;
+    margin-bottom: 20px;
+    padding: 15px;
+    color:whitesmoke;
+}
+
+.image-course {
+    width: 100%;
+}
+
+.course {
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+}
+
 i {
     color: white;
 }

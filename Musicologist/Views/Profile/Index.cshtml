@@ -1,6 +1,40 @@
 ﻿@model Musicologist.ViewModels.ApplicationUserViewModel
 
-<h3>ApplicationUser: @Model.CurrentApplicationUser.Email</h3>
+<div class="container">
 
-<h3>XPGainedTotal: @Model.CurrentApplicationUser.UserStatistics.XPGainedTotal</h3>
-  
+    <div class="row margin-bottom-25">
+        <div class="col-sm-4 col-md-3 col-lg-2">
+            <img src="/img/profile-picture-avatar-3.jpg" id="profile-image" class="img">
+        </div>
+        <div class="col-sm-4 col-md-3 col-lg-10">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <h3>@Model.CurrentApplicationUser.UserName</h3>
+                    </div>
+                    <div class="col-lg-1">
+                        <a href="/Profile/Edit"><button type="button" class="btn btn-info">Edit</button></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <h6>Lvl 5 @Model.CurrentApplicationUser.UserStatistics.XPGainedTotal XP</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3>Courses:</h3>
+    
+    <div class="row">
+
+        @foreach (var course in Model.CurrentApplicationUser.Courses)
+        {
+            <div class="course zoom col-12 col-sm-4 col-md-4 col-lg-4 box col-xl-4 box">
+                <img class="image-course" src="/img/music-theory-basics.jpg">
+                <div class="course-title">@course.Title</div>
+            </div>
+        }
+    </div>
+</div>

@@ -33,6 +33,7 @@ namespace Musicologist
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddTransient<IApplicationUserRepository, ApplicationUserRepository>();
+            services.AddTransient<ICourseRepository, CourseRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

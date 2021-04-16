@@ -66,18 +66,30 @@ namespace Musicologist.Controllers
 
         private ApplicationUserViewModel.ApplicationUser GetProfile()
         {
-            return _applicationUserRepository.GetUser(_userManager.GetUserId(User))
+            string Id = _userManager.GetUserId(User);
+
+            var applicationUser = _applicationUserRepository.GetUserProfile(Id)
                 .Select(x => new ApplicationUserViewModel.ApplicationUser
                 {
+                    UserName = x.UserName,
                     Email = x.Email,
-                    Courses = x.Courses.Select(c => new ApplicationUserViewModel.Course { Title = c.Title }).ToList(),
-                    UserStatistics = new ApplicationUserViewModel.UserStatistics { XPGainedTotal = x.UserStatistics.XPGainedTotal }
+                    UserStatistics = new ApplicationUserViewModel.UserStatistics { 
+                        XPGainedTotal = x.UserStatistics.XPGainedTotal 
+                    }
                 }).SingleOrDefault();
+
+            applicationUser.Courses = _applicationUserRepository.GetUserCourses(Id).Select(x => new ApplicationUserViewModel.Course
+            {
+                CourseId = x.Course.Id,
+                Title = x.Course.Title
+            }).ToList();
+
+            return applicationUser;
         }
 
         private async Task<Update> UpdateProfile(ApplicationUserViewModel.ApplicationUser currentApplicationUser)
         {
-            var applicationUser = _applicationUserRepository.GetUser(_userManager.GetUserId(User)).SingleOrDefault();
+            var applicationUser = _applicationUserRepository.GetUserProfile(_userManager.GetUserId(User)).SingleOrDefault();
 
             applicationUser.UserName = currentApplicationUser.Email;
 
