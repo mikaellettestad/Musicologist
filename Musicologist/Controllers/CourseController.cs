@@ -28,21 +28,42 @@ namespace Musicologist.Controllers
 
         public IActionResult Index()
         {
-            Model.Courses = GetAllCourses();
+            Model.Courses = GetAllCourseDetails();
 
             return View(Model);
         }
 
         public IActionResult CourseDetails(string Id)
         {
-            Model.CurrentCourse = GetSingleCourse(Convert.ToInt32(Id));
+            Model.CurrentCourse = GetCourseDetails(Convert.ToInt32(Id));
 
             return View(Model);
         }
 
-        private List<CourseViewModel.Course> GetAllCourses()
+        public IActionResult Course(int Id)
         {
-            return _courseRepository.GetCourses().Select(c => new CourseViewModel.Course
+            Model.CurrentCourse = GetCourse(Convert.ToInt32(Id));
+
+            return View(Model);
+        }
+
+        public IActionResult Lesson(int Id)
+        {
+            Model.CurrentLesson = GetLesson(Convert.ToInt32(Id));
+
+            return View(Model);
+        }
+
+        public IActionResult Assignment(int Id)
+        {
+            Model.CurrentLesson = GetLesson(Convert.ToInt32(Id));
+
+            return View(Model);
+        }
+
+        private List<CourseViewModel.Course> GetAllCourseDetails()
+        {
+            return _courseRepository.GetAllCourseDetails().Select(c => new CourseViewModel.Course
             {
                 Id = c.Id,
                 Title = c.Title,
@@ -51,7 +72,19 @@ namespace Musicologist.Controllers
             }).ToList();
         }
 
-        private CourseViewModel.Course GetSingleCourse(int Id)
+        private CourseViewModel.Course GetCourseDetails(int Id)
+        {
+            return _courseRepository.GetCourseDetails(Id).Select(c => new CourseViewModel.Course
+            {
+                Id = c.Id,
+                Title = c.Title,
+                Description = c.Description,
+                XP = c.XP,
+                ImageUrl = c.ImageUrl
+            }).SingleOrDefault();
+        }
+
+        private CourseViewModel.Course GetCourse(int Id)
         {
             return _courseRepository.GetCourse(Id).Select(c => new CourseViewModel.Course
             {
@@ -59,7 +92,48 @@ namespace Musicologist.Controllers
                 Title = c.Title,
                 Description = c.Description,
                 XP = c.XP,
-                ImageUrl = c.ImageUrl
+                CourseParts = c.CourseParts.Select(c => new CourseViewModel.CoursePart {
+                    Id = c.Id,
+                    Title = c.Title,
+                    Description = c.Description,
+                    Lessons = c.Lessons.Select(c => new CourseViewModel.Lesson { 
+                        Id = c.Id,
+                        Title = c.Title,
+                        Description = c.Description
+                    }).ToList()
+                }).ToList()
+            }).SingleOrDefault();
+        }
+
+        private CourseViewModel.Lesson GetLesson(int Id)
+        {
+            return _courseRepository.GetLesson(Id).Select(l => new CourseViewModel.Lesson
+            {
+                Id = l.Id,
+                Title = l.Title,
+                Description = l.Description,
+                LessonTexts = l.LessonTexts.Select(l => new CourseViewModel.LessonText {
+                    Title = l.Title,
+                    Text = l.Text
+                }).ToList(),
+                LessonImages = l.LessonImages.Select(l => new CourseViewModel.LessonImage
+                {
+                    Id = l.Id,
+                    Title = l.Title,
+                    ImageUrl = l.ImageUrl
+                }).ToList(),
+                Assignment = new CourseViewModel.Assignment()
+                { 
+                    Id = l.Assignment.Id,
+                    Title = l.Assignment.Title,
+                    Question = l.Assignment.Question,
+                    Answers = l.Assignment.Answers.Select(a => new CourseViewModel.Answer
+                    {
+                        Id = a.Id,
+                        Text = a.Text,
+                        IsCorrect = a.IsCorrect
+                    }).ToList()
+                }
             }).SingleOrDefault();
         }
     }

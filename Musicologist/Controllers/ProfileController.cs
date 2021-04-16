@@ -80,7 +80,7 @@ namespace Musicologist.Controllers
 
             applicationUser.Courses = _applicationUserRepository.GetUserCourses(Id).Select(x => new ApplicationUserViewModel.Course
             {
-                CourseId = x.Course.Id,
+                Id = x.Course.Id,
                 Title = x.Course.Title
             }).ToList();
 

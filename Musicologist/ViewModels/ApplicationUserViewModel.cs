@@ -20,7 +20,7 @@ namespace Musicologist.ViewModels
         }
         public class Course
         {
-            public int CourseId { get; set; }
+            public int Id { get; set; }
             public string Title { get; set; }
         }
 

@@ -6,6 +6,7 @@ namespace Musicologist.ViewModels
     {
         public Course CurrentCourse { get; set; }
         public List<Course> Courses { get; set; }
+        public Lesson CurrentLesson { get; set; }
         public class Course
         {
             public int Id { get; set; }

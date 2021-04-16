@@ -26,15 +26,17 @@
     </div>
 
     <h3>Courses:</h3>
-    
+
     <div class="row">
 
         @foreach (var course in Model.CurrentApplicationUser.Courses)
         {
-            <div class="course zoom col-12 col-sm-4 col-md-4 col-lg-4 box col-xl-4 box">
-                <img class="image-course" src="/img/music-theory-basics.jpg">
-                <div class="course-title">@course.Title</div>
-            </div>
+            <a href="/Course/Course?Id=@course.Id">
+                <div class="course zoom col-12 col-sm-4 col-md-4 col-lg-4 box col-xl-4 box">
+                    <img class="image-course" src="/img/music-theory-basics.jpg">
+                    <div class="course-title">@course.Title</div>
+                </div>
+            </a>
         }
     </div>
 </div>
