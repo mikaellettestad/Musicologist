@@ -12,6 +12,7 @@
 Musicologist/Data/Migrations/
 Musicologist/obj/Debug/
 vs/Musicologist/
+dev/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

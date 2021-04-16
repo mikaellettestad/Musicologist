@@ -33,7 +33,6 @@ namespace Musicologist.Controllers
             return View(Model);
         }
 
-        [HttpGet]
         public IActionResult CourseDetails(string Id)
         {
             Model.CurrentCourse = GetSingleCourse(Convert.ToInt32(Id));
