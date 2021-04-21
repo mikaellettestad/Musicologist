@@ -22,9 +22,9 @@ namespace Musicologist.Repositories
                 .Include(x => x.UserStatistics);
         }
 
-        public IQueryable<CourseUser> GetUserCourses(string Id)
+        public IQueryable<ApplicationUserCourse> GetUserCourses(string Id)
         {
-            return _context.CourseUsers.Where(c => c.ApplicationUser.Id == Id)
+            return _context.ApplicationUserCourses.Where(c => c.ApplicationUser.Id == Id)
                 .Include(c => c.Course);
         } 
 

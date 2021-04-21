@@ -1,9 +1,10 @@
 ﻿namespace Musicologist.Models
 {
-    public class CourseUser
+    public class ApplicationUserCourse
     {
         public int Id { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public Course Course { get; set; }
+        public bool IsCompleted { get; set; }
     }
 }

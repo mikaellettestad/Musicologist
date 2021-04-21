@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
+using Musicologist.Services;
 using Musicologist.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -57,6 +58,23 @@ namespace Musicologist.Controllers
         public IActionResult Assignment(int Id)
         {
             Model.CurrentLesson = GetLesson(Convert.ToInt32(Id));
+
+            return View(Model);
+        }
+
+        [HttpPost]
+        public IActionResult Assignment(CourseViewModel model)
+        {
+            Model.CurrentLesson = GetLesson(Convert.ToInt32(model.CurrentLesson.Id));
+
+            if (model.CurrentAnswer.IsCorrect)
+            {
+                var assignmentService = new AssignmentService();
+
+                assignmentService.RegisterCompleted(_userManager.GetUserId(User), model.CurrentAssignment.Id);
+
+                return View(Model);
+            }
 
             return View(Model);
         }
@@ -127,6 +145,7 @@ namespace Musicologist.Controllers
                     Id = l.Assignment.Id,
                     Title = l.Assignment.Title,
                     Question = l.Assignment.Question,
+                    XPRewardIfCompleted = l.Assignment.XPRewardIfCompleted,
                     Answers = l.Assignment.Answers.Select(a => new CourseViewModel.Answer
                     {
                         Id = a.Id,

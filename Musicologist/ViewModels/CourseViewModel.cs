@@ -7,6 +7,8 @@ namespace Musicologist.ViewModels
         public Course CurrentCourse { get; set; }
         public List<Course> Courses { get; set; }
         public Lesson CurrentLesson { get; set; }
+        public Answer CurrentAnswer { get; set; }
+        public Assignment CurrentAssignment { get; set; }
         public class Course
         {
             public int Id { get; set; }
@@ -56,6 +58,7 @@ namespace Musicologist.ViewModels
             public string Title { get; set; }
             public string Question { get; set; }
             public bool IsCompleted { get; set; }
+            public int XPRewardIfCompleted { get; set; }
             public List<Answer> Answers { get; set; }
         }
 

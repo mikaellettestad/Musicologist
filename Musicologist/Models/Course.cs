@@ -9,7 +9,6 @@ namespace Musicologist.Models
         public string Description { get; set; }
         public int XP { get; set; }
         public string ImageUrl { get; set; }
-        public bool IsCompleted { get; set; }
         public List<CoursePart> CourseParts { get; set; }
     }
 }

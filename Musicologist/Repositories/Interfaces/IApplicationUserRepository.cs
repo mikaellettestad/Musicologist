@@ -10,6 +10,6 @@ namespace Musicologist.Repositories.Interfaces
     public interface IApplicationUserRepository
     {
         IQueryable<ApplicationUser> GetUserProfile(string Id);
-        IQueryable<CourseUser> GetUserCourses(string Id);
+        IQueryable<ApplicationUserCourse> GetUserCourses(string Id);
     }
 }
