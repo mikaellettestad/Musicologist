@@ -31,12 +31,18 @@
 
         @foreach (var course in Model.CurrentApplicationUser.ApplicationUserCourses)
         {
-            <a href="/Course/Course?Id=@course.Id">
+            <a href="/ApplicationUserCourse/Index?Id=@course.Id">
                 <div class="course zoom col-12 col-sm-4 col-md-4 col-lg-4 box col-xl-4 box">
                     <img class="image-course" src="/img/music-theory-basics.jpg">
                     <div class="course-title">@course.Title IsCompleted: @course.IsCompleted</div>
                 </div>
             </a>
+            @*<a href="/Course/Course?Id=@course.Id">
+                <div class="course zoom col-12 col-sm-4 col-md-4 col-lg-4 box col-xl-4 box">
+                    <img class="image-course" src="/img/music-theory-basics.jpg">
+                    <div class="course-title">@course.Title IsCompleted: @course.IsCompleted</div>
+                </div>
+            </a>*@
         }
     </div>
 </div>

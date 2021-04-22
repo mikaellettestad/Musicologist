@@ -5,6 +5,8 @@
 
 <h3>Lesson:</h3>
 
+
+
 @foreach (var lessonText in Model.CurrentLesson.LessonTexts)
 {
     <h6>@lessonText.Title</h6>
@@ -12,6 +14,8 @@
 }
 
 <hr />
+
+
 
 <a href="/Assignment/Assignment?id=@Model.CurrentLesson.Assignment.Id">
     <button class="btn btn-success">Assignment-></button>

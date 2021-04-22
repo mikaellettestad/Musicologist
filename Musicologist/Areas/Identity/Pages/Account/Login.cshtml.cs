@@ -76,7 +76,7 @@ namespace Musicologist.Areas.Identity.Pages.Account
         {
             //returnUrl = returnUrl ?? Url.Content("~/");
 
-            returnUrl = returnUrl ?? Url.Content("~/Profile");
+            returnUrl = returnUrl ?? Url.Content("~/ApplicationUser");
 
             if (ModelState.IsValid)
             {

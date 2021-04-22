@@ -1,0 +1,48 @@
+﻿@model Musicologist.ViewModels.ApplicationUserCourseViewModel
+
+<h1>@Model.CurrentApplicationUserCourse.Title</h1>
+
+
+@* Behöver veta om assignment is completed *@
+
+@{ bool LessonIsUnlocked = false; }
+
+
+@foreach (var coursePart in Model.CurrentApplicationUserCourse.CourseParts)
+{
+    <h3>@coursePart.Title</h3>
+    <table>
+        @foreach (var lesson in coursePart.Lessons)
+        {
+            <tr>
+                <td>
+                    <a href="/Course/Lesson?Id=@lesson.Id">
+                        <p>@lesson.Title</p>
+                    </a>
+                    <p>@lesson.Description</p>
+                    <hr />
+                </td>
+                @if (lesson.Assignment.IsCompleted)
+                {
+                    <td>
+                        <i style="color:green;" class="fas fa-check"></i>
+                    </td>
+
+                    LessonIsUnlocked = true;
+                }
+                else if(LessonIsUnlocked)
+                {
+                    <td>
+                        <i style="color:grey;" class="fas fa-unlock"></i>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <i style="color:grey;" class="fas fa-lock"></i>
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+}

@@ -12,14 +12,14 @@ using System.Threading.Tasks;
 namespace Musicologist.Controllers
 {
     [Authorize(Roles = "User")]
-    public class ProfileController : Controller
+    public class ApplicationUserController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IApplicationUserRepository _applicationUserRepository;
         public ApplicationUserViewModel Model;
 
-        public ProfileController(ILogger<HomeController> logger,
+        public ApplicationUserController(ILogger<HomeController> logger,
             UserManager<ApplicationUser> userManager,
             IApplicationUserRepository applicationUserRepository)
         {
