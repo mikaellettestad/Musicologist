@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
@@ -29,6 +30,15 @@ namespace Musicologist.Controllers
             Model.CurrentApplicationUserCourse = GetCourse(_userManager.GetUserId(User), id);
 
             return View(Model);
+        }
+
+        [Authorize(Roles = "User")]
+        public IActionResult AddCourse(int id)
+        {
+            Model.CurrentApplicationUserCourse = GetCourse(_userManager.GetUserId(User), id);
+
+            // Tills vidare
+            return View("Index", Model);
         }
 
         private ApplicationUserCourseViewModel.ApplicationUserCourse GetCourse(string applicationUserId, int courseId)

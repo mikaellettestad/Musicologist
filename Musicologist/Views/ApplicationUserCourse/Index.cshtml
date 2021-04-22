@@ -15,15 +15,14 @@
         @foreach (var lesson in coursePart.Lessons)
         {
             <tr>
-                <td>
-                    <a href="/Course/Lesson?Id=@lesson.Id">
-                        <p>@lesson.Title</p>
-                    </a>
-                    <p>@lesson.Description</p>
-                    <hr />
-                </td>
                 @if (lesson.Assignment.IsCompleted)
                 {
+                    <td>
+                        <a href="/Course/Lesson?Id=@lesson.Id">
+                            <p>@lesson.Title</p>
+                        </a>
+                    </td>
+
                     <td>
                         <i style="color:green;" class="fas fa-check"></i>
                     </td>
@@ -33,11 +32,22 @@
                 else if(LessonIsUnlocked)
                 {
                     <td>
+                        <a href="/Course/Lesson?Id=@lesson.Id">
+                            <p>@lesson.Title</p>
+                        </a>
+                    </td>
+
+                    <td>
                         <i style="color:grey;" class="fas fa-unlock"></i>
                     </td>
+
+                    LessonIsUnlocked = false;
                 }
                 else
                 {
+                    <td>
+                        <p>@lesson.Title</p>
+                    </td>
                     <td>
                         <i style="color:grey;" class="fas fa-lock"></i>
                     </td>

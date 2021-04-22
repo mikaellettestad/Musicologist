@@ -50,14 +50,14 @@ namespace Musicologist.Controllers
             return View(Model);
         }
 
-        [Authorize(Roles = "User")]
-        public IActionResult AddCourse(int id)
-        {
-            Model.CurrentCourse = GetCourse(id);
+        //[Authorize(Roles = "User")]
+        //public IActionResult AddCourse(int id)
+        //{
+        //    Model.CurrentCourse = GetCourse(id);
 
-            // Tills vidare
-            return View("Course", Model);
-        }
+        //    // Tills vidare
+        //    return View("Course", Model);
+        //}
 
         public IActionResult ApplicationUserCourse()
         {

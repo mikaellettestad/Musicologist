@@ -4,19 +4,25 @@
 
     <div class="row margin-bottom-25">
         <div class="col-sm-4 col-md-3 col-lg-2">
+            @* ================================================================================================ *@
+            @* Hårdkodad profilbild *@
             <img src="/img/profile-picture-avatar-3.jpg" id="profile-image" class="img">
+            @* ================================================================================================ *@
         </div>
         <div class="col-sm-4 col-md-3 col-lg-10">
             <div class="container">
                 <div class="row">
+
                     <div class="col-lg-3">
                         <h3>@Model.CurrentApplicationUser.UserName</h3>
                     </div>
+
                     <div class="col-lg-1">
-                        <a href="/Profile/Edit"><button type="button" class="btn btn-info">Edit</button></a>
+                        <a asp-area="Identity" asp-page="/Account/Manage/Index" class="btn btn-info">Edit</a>
                     </div>
                 </div>
                 <div class="row">
+
                     <div class="col-lg-3">
                         <h6>Lvl 5 @Model.CurrentApplicationUser.UserStatistics.XPGainedTotal XP</h6>
                     </div>
@@ -25,7 +31,7 @@
         </div>
     </div>
 
-    <h3>Courses:</h3>
+    <h3>My courses</h3>
 
     <div class="row">
 
@@ -37,12 +43,6 @@
                     <div class="course-title">@course.Title IsCompleted: @course.IsCompleted</div>
                 </div>
             </a>
-            @*<a href="/Course/Course?Id=@course.Id">
-                <div class="course zoom col-12 col-sm-4 col-md-4 col-lg-4 box col-xl-4 box">
-                    <img class="image-course" src="/img/music-theory-basics.jpg">
-                    <div class="course-title">@course.Title IsCompleted: @course.IsCompleted</div>
-                </div>
-            </a>*@
         }
     </div>
 </div>
