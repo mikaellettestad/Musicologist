@@ -68,7 +68,7 @@ namespace Musicologist.Controllers
         {
             string Id = _userManager.GetUserId(User);
 
-            var applicationUser = _applicationUserRepository.GetUserProfile(Id)
+            var applicationUser = _applicationUserRepository.GetUserProfile(_userManager.GetUserId(User))
                 .Select(x => new ApplicationUserViewModel.ApplicationUser
                 {
                     UserName = x.UserName,
@@ -78,11 +78,13 @@ namespace Musicologist.Controllers
                     }
                 }).SingleOrDefault();
 
-            applicationUser.Courses = _applicationUserRepository.GetUserCourses(Id).Select(x => new ApplicationUserViewModel.Course
+            applicationUser.ApplicationUserCourses = _applicationUserRepository.GetApplicationUserCourses(Id).Select(a => new ApplicationUserViewModel.ApplicationUserCourse
             {
-                Id = x.Course.Id,
-                Title = x.Course.Title
+                Id = a.Course.Id,
+                Title = a.Course.Title,
+                IsCompleted = a.IsCompleted
             }).ToList();
+
 
             return applicationUser;
         }

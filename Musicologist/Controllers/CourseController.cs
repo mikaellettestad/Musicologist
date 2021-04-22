@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
@@ -41,9 +42,36 @@ namespace Musicologist.Controllers
             return View(Model);
         }
 
-        public IActionResult Course(int Id)
+        public IActionResult Course(int id)
         {
-            Model.CurrentCourse = GetCourse(Convert.ToInt32(Id));
+            Model.CurrentCourse = GetCourse(id);
+
+            // Tills vidare
+            return View(Model);
+        }
+
+        [Authorize(Roles = "User")]
+        public IActionResult AddCourse(int id)
+        {
+            Model.CurrentCourse = GetCourse(id);
+
+            // Tills vidare
+            return View("Course", Model);
+        }
+
+        public IActionResult ApplicationUserCourse()
+        {
+            string ApplicationUserId = _userManager.GetUserId(User);
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ApplicationUserCourse(ApplicationUserViewModel model)
+        {
+            Model.CurrentCourse = GetCourse(Convert.ToInt32(model.CurrentCourse.Id));
+
+            string ApplicationUserId = _userManager.GetUserId(User);
 
             return View(Model);
         }
@@ -55,29 +83,29 @@ namespace Musicologist.Controllers
             return View(Model);
         }
 
-        public IActionResult Assignment(int Id)
-        {
-            Model.CurrentLesson = GetLesson(Convert.ToInt32(Id));
+        //public IActionResult Assignment(int assignmentId)
+        //{
+        //    Model.CurrentLesson = GetLesson(Convert.ToInt32(assignmentId));
 
-            return View(Model);
-        }
+        //    return View(Model);
+        //}
 
-        [HttpPost]
-        public IActionResult Assignment(CourseViewModel model)
-        {
-            Model.CurrentLesson = GetLesson(Convert.ToInt32(model.CurrentLesson.Id));
+        //[HttpPost]
+        //public IActionResult Assignment(CourseViewModel model)
+        //{
+        //    Model.CurrentLesson = GetLesson(Convert.ToInt32(model.CurrentLesson.Id));
 
-            if (model.CurrentAnswer.IsCorrect)
-            {
-                var assignmentService = new AssignmentService();
+        //    if (model.CurrentAnswer.IsCorrect)
+        //    {
+        //        var assignmentService = new AssignmentService();
 
-                assignmentService.RegisterCompleted(_userManager.GetUserId(User), model.CurrentAssignment.Id);
+        //        assignmentService.Register(_userManager.GetUserId(User), model.CurrentAssignment.Id);
 
-                return View(Model);
-            }
+        //        return View(Model);
+        //    }
 
-            return View(Model);
-        }
+        //    return View(Model);
+        //}
 
         private List<CourseViewModel.Course> GetAllCourseDetails()
         {
@@ -117,11 +145,16 @@ namespace Musicologist.Controllers
                     Lessons = c.Lessons.Select(c => new CourseViewModel.Lesson { 
                         Id = c.Id,
                         Title = c.Title,
-                        Description = c.Description
+                        Description = c.Description,
+                        Assignment = new CourseViewModel.Assignment
+                        {
+                            IsCompleted = false
+                        }
                     }).ToList()
                 }).ToList()
             }).SingleOrDefault();
         }
+
 
         private CourseViewModel.Lesson GetLesson(int Id)
         {
@@ -146,6 +179,7 @@ namespace Musicologist.Controllers
                     Title = l.Assignment.Title,
                     Question = l.Assignment.Question,
                     XPRewardIfCompleted = l.Assignment.XPRewardIfCompleted,
+                    IsCompleted = false,
                     Answers = l.Assignment.Answers.Select(a => new CourseViewModel.Answer
                     {
                         Id = a.Id,

@@ -1,0 +1,24 @@
+﻿@model Musicologist.ViewModels.AssignmentViewModel
+
+<h1>Assignment</h1>
+
+<h3>@Model.CurrentAssignment.Title</h3>
+
+<h3>@Model.CurrentAssignment.Question</h3>
+
+@foreach (var answer in Model.CurrentAssignment.Answers)
+{
+    <form asp-controller="Assignment" asp-action="Assignment" method="post">
+        <input type="hidden" asp-for="@Model.CurrentAssignment.Id" value="@Model.CurrentAssignment.Id" />
+        <input type="hidden" asp-for="@Model.CurrentAssignment.Id" value="@Model.CurrentAssignment.Id" />
+        <input type="hidden" asp-for="@Model.CurrentAnswer.IsCorrect" value="@answer.IsCorrect" />
+        <button type="submit" class="btn btn-success">@answer.Text</button>
+    </form>
+
+    @*<a href="/Course/Answer?Id=@answer.Id">
+            <button class="btn btn-success">@answer.Text</button>
+        </a>*@
+
+    <br />
+    <br />
+}

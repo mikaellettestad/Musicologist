@@ -9,5 +9,6 @@ namespace Musicologist.Repositories.Interfaces
         IQueryable<Course> GetCourseDetails(int Id);
         IQueryable<Course> GetCourse(int Id);
         IQueryable<Lesson> GetLesson(int Id);
+        IQueryable<ApplicationUserAssignment> GetApplicationUserAssignments(string applicationUserId, int assignmentId);
     }
 }

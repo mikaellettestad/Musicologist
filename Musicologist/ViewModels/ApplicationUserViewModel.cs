@@ -8,6 +8,7 @@ namespace Musicologist.ViewModels
 
         public string ConfirmationMessage { get; set; }
         public string ErrorMessage { get; set; }
+        public ApplicationUserCourse CurrentCourse { get; set; }
 
         public class ApplicationUser
         {
@@ -15,13 +16,17 @@ namespace Musicologist.ViewModels
             public string Email { get; set; }
             public string CurrentPassword { get; set; }
             public string NewPassword { get; set; }
-            public List<Course> Courses { get; set; }
+
+            // Detta ska tracka mig som användare
+            public List<ApplicationUserCourse> ApplicationUserCourses { get; set; }
             public UserStatistics UserStatistics { get; set; }
         }
-        public class Course
+
+        public class ApplicationUserCourse
         {
             public int Id { get; set; }
             public string Title { get; set; }
+            public bool IsCompleted { get; set; }
         }
 
         public class UserStatistics

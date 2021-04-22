@@ -22,11 +22,30 @@ namespace Musicologist.Repositories
                 .Include(x => x.UserStatistics);
         }
 
-        public IQueryable<ApplicationUserCourse> GetUserCourses(string Id)
+        // Så här ser modellen ut
+        // Tabellen binder samman användare och kurs
+        // Kanske behövs en variabel: int XPEarned? Hmmmmm
+
+        //public class ApplicationUserCourse
+        //{
+        //    public int Id { get; set; }
+        //    public ApplicationUser ApplicationUser { get; set; }
+        //    public Course Course { get; set; }
+        //    public bool IsCompleted { get; set; }
+        //}
+
+        // H
+        public IQueryable<ApplicationUserCourse> GetApplicationUserCourses(string Id)
         {
             return _context.ApplicationUserCourses.Where(c => c.ApplicationUser.Id == Id)
                 .Include(c => c.Course);
-        } 
+        }
+
+        public IQueryable<ApplicationUserAssignment> GetApplicationUserAssignments(string applicationUserId, int assignmentId)
+        {
+            return _context.ApplicationUserAssignments
+                .Where(a => a.ApplicationUser.Id == applicationUserId && a.Assignment.Id == assignmentId);
+        }
 
         public Update UpdateUser(string Id)
         {

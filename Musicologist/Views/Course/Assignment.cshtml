@@ -8,11 +8,12 @@
 
 @foreach (var answer in Model.CurrentLesson.Assignment.Answers)
 {
-    <form asp-controller="Course" asp-action="Assignment" method="post">
-        <input type="hidden" asp-for="@Model.CurrentAssignment.Id" value="@Model.CurrentLesson.Assignment.Id" />
-        <input type="hidden" asp-for="@Model.CurrentAnswer.IsCorrect" value="@answer.IsCorrect" />
-        <button type="submit" class="btn btn-success">@answer.Text</button>
-    </form>
+<form asp-controller="Course" asp-action="Assignment" method="post">
+    <input type="hidden" asp-for="@Model.CurrentLesson.Id" value="@Model.CurrentLesson.Id" />
+    <input type="hidden" asp-for="@Model.CurrentAssignment.Id" value="@Model.CurrentLesson.Assignment.Id" />
+    <input type="hidden" asp-for="@Model.CurrentAnswer.IsCorrect" value="@answer.IsCorrect" />
+    <button type="submit" class="btn btn-success">@answer.Text</button>
+</form>
 
     @*<a href="/Course/Answer?Id=@answer.Id">
             <button class="btn btn-success">@answer.Text</button>

@@ -10,7 +10,7 @@ namespace Musicologist.Services
     public class AssignmentService
     {
 
-        public bool RegisterCompleted(string userId, int assignmentId)
+        public bool Register(string userId, int assignmentId)
         {
 
             return true;

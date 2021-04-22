@@ -23,6 +23,6 @@ namespace Musicologist.Data
         public DbSet<Answer> Answers { get; set; }
         public DbSet<UserStatistics> UserStatistics { get; set; }
         public DbSet<ApplicationUserCourse> ApplicationUserCourses { get; set; }
-        public DbSet<AssignmentUser> AssignmentUsers { get; set; }
+        public DbSet<ApplicationUserAssignment> ApplicationUserAssignments { get; set; }
     }
 }

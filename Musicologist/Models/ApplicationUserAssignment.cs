@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Musicologist.Models
 {
-    public class AssignmentUser
+    public class ApplicationUserAssignment
     {
         public int Id { get; set; }
         public Assignment Assignment { get; set; }

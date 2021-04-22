@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Musicologist.Repositories.Interfaces
 {
-    public interface IApplicationUserRepository
+    public interface IAssignmentRepository
     {
-        IQueryable<ApplicationUser> GetUserProfile(string Id);
-        IQueryable<ApplicationUserCourse> GetApplicationUserCourses(string Id);
+        IQueryable<Assignment> GetAssignment(int id);
     }
 }
