@@ -74,7 +74,7 @@ namespace Musicologist.Controllers
                     UserName = x.UserName,
                     Email = x.Email,
                     UserStatistics = new ApplicationUserViewModel.UserStatistics { 
-                        XPGainedTotal = x.UserStatistics.XPGainedTotal 
+                      XPGainedTotal = x.UserStatistics.XPGainedTotal 
                     }
                 }).SingleOrDefault();
 

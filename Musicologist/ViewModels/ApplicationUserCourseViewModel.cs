@@ -5,12 +5,14 @@ namespace Musicologist.ViewModels
     public class ApplicationUserCourseViewModel
     {
         public ApplicationUserCourse CurrentApplicationUserCourse { get; set; }
+        public int CurrentCourseId { get; set; }
         public class ApplicationUserCourse
         {
             public int Id { get; set; }
             public string Title { get; set; }
             public string Description { get; set; }
-            public int XP { get; set; }
+            public int XPReward { get; set; }
+            public int XPEarned { get; set; }
             public string ImageUrl { get; set; }
             public bool IsCompleted { get; set; }
             public List<CoursePart> CourseParts { get; set; }

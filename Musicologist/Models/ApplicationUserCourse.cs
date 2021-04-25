@@ -6,5 +6,6 @@
         public ApplicationUser ApplicationUser { get; set; }
         public Course Course { get; set; }
         public bool IsCompleted { get; set; }
+        public int XPEarned { get; set; }
     }
 }

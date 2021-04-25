@@ -8,7 +8,8 @@
 
 @foreach (var answer in Model.CurrentAssignment.Answers)
 {
-    <form asp-controller="Assignment" asp-action="Assignment" method="post">
+    <form asp-controller="ApplicationUserAssignment" asp-action="Index" method="post">
+        <input type="hidden" asp-for="@Model.CurrentCourseId" value="@Model.CurrentCourseId" />
         <input type="hidden" asp-for="@Model.CurrentAssignment.Id" value="@Model.CurrentAssignment.Id" />
         <input type="hidden" asp-for="@Model.CurrentAssignment.Id" value="@Model.CurrentAssignment.Id" />
         <input type="hidden" asp-for="@Model.CurrentAnswer.IsCorrect" value="@answer.IsCorrect" />

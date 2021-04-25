@@ -4,6 +4,8 @@
 
 <h1>@Model.CurrentApplicationUserCourse.Title</h1>
 
+<h6>XP earned: @Model.CurrentApplicationUserCourse.XPEarned out of @Model.CurrentApplicationUserCourse.XPReward</h6>
+
 @{ bool LessonIsUnlocked = false; }
 
 @foreach (var coursePart in Model.CurrentApplicationUserCourse.CourseParts)
@@ -16,7 +18,7 @@
                 @if (lesson.Assignment.IsCompleted)
                 {
                     <td>
-                        <a href="/Course/Lesson?Id=@lesson.Id">
+                        <a href="/Course/Lesson?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId">
                             <p>@lesson.Title</p>
                         </a>
                     </td>
@@ -30,7 +32,7 @@
                 else if(LessonIsUnlocked)
                 {
                     <td>
-                        <a href="/Course/Lesson?Id=@lesson.Id">
+                        <a href="/Course/Lesson?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId">
                             <p>@lesson.Title</p>
                         </a>
                     </td>

@@ -29,6 +29,8 @@ namespace Musicologist.Controllers
         {
             Model.CurrentApplicationUserCourse = GetApplicationUserCourse(_userManager.GetUserId(User), courseId);
 
+            Model.CurrentCourseId = courseId;
+
             return View(Model);
         }
 
@@ -92,7 +94,9 @@ namespace Musicologist.Controllers
             {
                 Id = c.Id,
                 Title = c.Title,
-                Description = c.Description
+                Description = c.Description,
+                XPReward = c.XP
+
             }).SingleOrDefault();
         }
 
@@ -101,10 +105,11 @@ namespace Musicologist.Controllers
         {
             var applicationUserCourse =_applicationUserCourseRepository.GetCourse(applicationUserId, courseId)
                 .Select(c => new ApplicationUserCourseViewModel.ApplicationUserCourse {
+                    XPEarned = c.XPEarned,
                     Id = c.Course.Id,
                     Title = c.Course.Title,
                     Description = c.Course.Description,
-                    XP = c.Course.XP,
+                    XPReward = c.Course.XP,
                     ImageUrl = c.Course.ImageUrl,
                     IsCompleted = false,
                     CourseParts = c.Course.CourseParts.Select(c => new ApplicationUserCourseViewModel.CoursePart

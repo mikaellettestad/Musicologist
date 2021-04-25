@@ -46,9 +46,11 @@ namespace Musicologist.Controllers
             return View(Model);
         }
 
-        public IActionResult Lesson(int Id)
+        public IActionResult Lesson(int lessonId, int courseId)
         {
-            Model.CurrentLesson = GetLesson(Id);
+            Model.CurrentLesson = GetLesson(lessonId);
+
+            Model.CurrentCourseId = courseId;
 
             return View(Model);
         }
@@ -67,7 +69,7 @@ namespace Musicologist.Controllers
 
             if (model.CurrentAnswer.IsCorrect)
             {
-                var assignmentService = new AssignmentService();
+                var assignmentService = new ApplicationUserAssignmentService();
 
                 assignmentService.Register(_userManager.GetUserId(User), model.CurrentAssignment.Id);
 
@@ -146,7 +148,7 @@ namespace Musicologist.Controllers
                     Id = l.Assignment.Id,
                     Title = l.Assignment.Title,
                     Question = l.Assignment.Question,
-                    XPRewardIfCompleted = l.Assignment.XPRewardIfCompleted,
+                    XPRewardIfCompleted = l.Assignment.XPReward,
                     IsCompleted = false,
                     Answers = l.Assignment.Answers.Select(a => new CourseViewModel.Answer
                     {

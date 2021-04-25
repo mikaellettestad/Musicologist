@@ -34,7 +34,7 @@ namespace Musicologist
             services.AddRazorPages();
             services.AddTransient<IApplicationUserRepository, ApplicationUserRepository>();
             services.AddTransient<ICourseRepository, CourseRepository>();
-            services.AddTransient<IAssignmentRepository, AssignmentRepository>();
+            services.AddTransient<IApplicationUserAssignmentRepository, ApplicationUserAssignmentRepository>();
             services.AddTransient<IApplicationUserCourseRepository, ApplicationUserCourseRepository>();
         }
 

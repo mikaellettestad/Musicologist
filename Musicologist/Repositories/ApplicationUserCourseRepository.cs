@@ -33,6 +33,17 @@ namespace Musicologist.Repositories
             return _context.ApplicationUserCourses.Where(c => c.ApplicationUser.Id == applicationUserId && c.Course.Id == courseId);
         }
 
+        public void UpdateApplicationUserCourse(string applicationUserId, int courseId, int XPEarned)
+        {
+            var applicationUserCourse = GetApplicationUserCourse(applicationUserId, courseId).SingleOrDefault();
+
+            applicationUserCourse.XPEarned = XPEarned;
+
+            _context.ApplicationUserCourses.Update(applicationUserCourse);
+
+            _context.SaveChanges();
+        }
+
         public IQueryable<ApplicationUserAssignment> GetAssignment(string applicationUserId, int assignmentId)
         {
             return _context.ApplicationUserAssignments.Where(a => a.ApplicationUser.Id == applicationUserId && a.Assignment.Id == assignmentId);

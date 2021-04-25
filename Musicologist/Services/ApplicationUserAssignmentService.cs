@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace Musicologist.Services
 {
-    public class AssignmentService
+    public class ApplicationUserAssignmentService
     {
 
         public bool Register(string userId, int assignmentId)
         {
+
 
             return true;
         }
