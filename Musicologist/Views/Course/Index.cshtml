@@ -1,6 +1,12 @@
-﻿@model Musicologist.ViewModels.CourseViewModel;
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@model Musicologist.ViewModels.CourseViewModel;
 
 <h1>Our courses:</h1>
+
+@* Behöver veta om kursen är påbörjad *@
+
+@{ string route = ""; }
 
 <div class="container">
 
@@ -8,7 +14,24 @@
 
         @foreach (var course in Model.Courses)
         {
-            <a href="/Course/CourseDetails?Id=@course.Id">
+            if (SignInManager.IsSignedIn(User))
+            {
+                // ANROPA
+                //      OM ApplicationUserCourse finns registrerad (alltså om användaren redan har klickat på "Add to my courses"
+                //          RETURNERA vy
+                //             SKRIV UT "Continue course"
+                //      ANNARS
+                //          RETURNERA vy
+                //          SKRIV UT "Add to my courses"
+                route = "/ApplicationUserCourse/CourseDetails?courseId=" + course.Id;
+            }
+            else
+            {
+                // ANROPA
+                //      SKRIV UT CourseDetails
+                route = "/Course/CourseDetails?courseId=" + course.Id;
+            }
+            <a href="@route">
 
                 <div class="course zoom col-12 col-sm-4 col-md-4 col-lg-4 box col-xl-4 box">
 

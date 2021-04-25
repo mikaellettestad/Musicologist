@@ -2,9 +2,6 @@
 
 <h1>@Model.CurrentCourse.Title</h1>
 
-
-@* Behöver veta om assignment is completed *@
-
 @foreach (var coursePart in Model.CurrentCourse.CourseParts)
 {
     <h3>@coursePart.Title</h3>
@@ -17,8 +14,4 @@
     }
 
     <hr />
-
-    <i style="color:grey;" class="fas fa-unlock"></i>
-    <i style="color:grey;" class="fas fa-lock"></i>
-    <i style="color:green;"class="fas fa-check"></i>
 }

@@ -25,23 +25,79 @@ namespace Musicologist.Controllers
             Model = new ApplicationUserCourseViewModel();
         }
         
-        public IActionResult Index(int id)
+        public IActionResult Index(int courseId)
         {
-            Model.CurrentApplicationUserCourse = GetCourse(_userManager.GetUserId(User), id);
+            Model.CurrentApplicationUserCourse = GetApplicationUserCourse(_userManager.GetUserId(User), courseId);
 
             return View(Model);
         }
 
-        [Authorize(Roles = "User")]
-        public IActionResult AddCourse(int id)
+        public IActionResult CourseDetails(int courseId)
         {
-            Model.CurrentApplicationUserCourse = GetCourse(_userManager.GetUserId(User), id);
+            var CourseIsAdded = CheckIfCourseIsAdded(_userManager.GetUserId(User), courseId);
 
-            // Tills vidare
-            return View("Index", Model);
+            var model = new CourseDetailsViewModel();
+
+            model = GetCourseDetails(courseId);
+
+            if (CourseIsAdded)
+                model.IsAdded = true;
+            else
+                model.IsAdded = false;
+
+            return View(model);
         }
 
-        private ApplicationUserCourseViewModel.ApplicationUserCourse GetCourse(string applicationUserId, int courseId)
+
+
+        [Authorize(Roles = "User")]
+        public IActionResult AddCourse(int courseId)
+        {
+
+            // Det som ska hända här
+            // Vad behövs för att en kurs ska kunna läggas till?
+            // Jo, att en ApplicationUserCourse med kurs och användarId sparas i databasen
+            // För det behövs anrop till ApplicationUserCourseRepopsitory
+
+            var CourseIsAdded = CheckIfCourseIsAdded(_userManager.GetUserId(User), courseId);
+
+            if (CourseIsAdded)
+            {
+                Model.CurrentApplicationUserCourse = GetApplicationUserCourse(_userManager.GetUserId(User), courseId);
+
+                return View("Index", Model);
+            }
+
+            _applicationUserCourseRepository.AddApplicationUserCourse(_userManager.GetUserId(User), courseId);
+
+            Model.CurrentApplicationUserCourse = GetApplicationUserCourse(_userManager.GetUserId(User), courseId);
+            // Tills vidare
+            return View("Index", Model);
+
+        }
+
+        private bool CheckIfCourseIsAdded(string applicationUserId, int courseId)
+        {
+            var result =_applicationUserCourseRepository.GetApplicationUserCourse(applicationUserId, courseId).SingleOrDefault();
+
+            if (result != null)
+                return true;
+            else
+                return false;
+        }
+
+        private CourseDetailsViewModel GetCourseDetails(int courseId)
+        {
+            return _applicationUserCourseRepository.GetCourseDetails(courseId).Select(c => new CourseDetailsViewModel
+            {
+                Id = c.Id,
+                Title = c.Title,
+                Description = c.Description
+            }).SingleOrDefault();
+        }
+
+        // Felhantering?
+        private ApplicationUserCourseViewModel.ApplicationUserCourse GetApplicationUserCourse(string applicationUserId, int courseId)
         {
             var applicationUserCourse =_applicationUserCourseRepository.GetCourse(applicationUserId, courseId)
                 .Select(c => new ApplicationUserCourseViewModel.ApplicationUserCourse {

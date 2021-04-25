@@ -1,12 +1,10 @@
 ﻿@model Musicologist.ViewModels.ApplicationUserCourseViewModel
 
+<h3>Continue where you left off...</h3>
+
 <h1>@Model.CurrentApplicationUserCourse.Title</h1>
 
-
-@* Behöver veta om assignment is completed *@
-
 @{ bool LessonIsUnlocked = false; }
-
 
 @foreach (var coursePart in Model.CurrentApplicationUserCourse.CourseParts)
 {

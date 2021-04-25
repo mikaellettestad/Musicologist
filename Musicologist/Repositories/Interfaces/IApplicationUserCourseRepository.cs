@@ -1,9 +1,5 @@
 ﻿using Musicologist.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Musicologist.Repositories.Interfaces
 {
@@ -11,5 +7,8 @@ namespace Musicologist.Repositories.Interfaces
     {
         IQueryable<ApplicationUserCourse> GetCourse(string applicationUserId, int courseId);
         public IQueryable<ApplicationUserAssignment> GetAssignment(string applicationUserId, int assignmentId);
+        IQueryable<ApplicationUserCourse> GetApplicationUserCourse(string applicationUserId, int courseId);
+        IQueryable<Course> GetCourseDetails(int courseId);
+        void AddApplicationUserCourse(string applicationUserId, int courseId);
     }
 }

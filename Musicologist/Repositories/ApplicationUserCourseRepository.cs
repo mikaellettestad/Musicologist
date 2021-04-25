@@ -28,9 +28,35 @@ namespace Musicologist.Repositories
                 .ThenInclude(c => c.Assignment);
         }
 
+        public IQueryable<ApplicationUserCourse> GetApplicationUserCourse(string applicationUserId, int courseId)
+        {
+            return _context.ApplicationUserCourses.Where(c => c.ApplicationUser.Id == applicationUserId && c.Course.Id == courseId);
+        }
+
         public IQueryable<ApplicationUserAssignment> GetAssignment(string applicationUserId, int assignmentId)
         {
             return _context.ApplicationUserAssignments.Where(a => a.ApplicationUser.Id == applicationUserId && a.Assignment.Id == assignmentId);
+        }
+
+        public void AddApplicationUserCourse(string applicationUserId, int courseId)
+        {
+            var course = _context.Courses.SingleOrDefault(c => c.Id == courseId);
+
+            var applicationUser = _context.ApplicationUsers.SingleOrDefault(a => a.Id == applicationUserId);
+            
+            var model = new ApplicationUserCourse() { 
+                ApplicationUser = applicationUser,
+                Course = course,
+                IsCompleted = false };
+
+            _context.ApplicationUserCourses.Add(model);
+
+            _context.SaveChanges();
+        }
+
+        public IQueryable<Course> GetCourseDetails(int courseId)
+        {
+            return _context.Courses.Where(c => c.Id == courseId);
         }
     }
 }
