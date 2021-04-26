@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
-using Musicologist.Services;
 using Musicologist.ViewModels;
 using System.Linq;
 
@@ -28,6 +27,10 @@ namespace Musicologist.Controllers
 
             Model.CurrentCourseId = courseId;
 
+            Model.AnswerIsCorrect = false;
+
+            Model.AnswerIsIncorrect = false;
+
             return View(Model);
         }
 
@@ -38,24 +41,56 @@ namespace Musicologist.Controllers
 
             if (model.CurrentAnswer.IsCorrect)
             {
+                UpdateResults(_userManager.GetUserId(User), model.CurrentCourseId, model.CurrentAssignment.Id, true);
 
-                AddResults(_userManager.GetUserId(User), model.CurrentCourseId, model.CurrentAssignment.Id);
-
-                return View(Model);
+                Model.AnswerIsCorrect = true;
+                Model.AnswerIsIncorrect = false;
             }
+            else
+            {
+                UpdateResults(_userManager.GetUserId(User), model.CurrentCourseId, model.CurrentAssignment.Id, false);
+
+                Model.AnswerIsCorrect = false;
+                Model.AnswerIsIncorrect = true;
+            }
+
+            Model.CurrentCourseId = model.CurrentCourseId;
 
             return View(Model);
         }
 
-        private void AddResults(string applicationUserId, int courseId, int assignmentId)
+        private void UpdateResults(string applicationUserId, int courseId, int assignmentId, bool isCompleted)
         {
             var assignment = _assignmentRepository.GetAssignment(assignmentId).SingleOrDefault();
 
-            var applicationUserCourse = _applicationUserCourseRepository.GetApplicationUserCourse(applicationUserId, courseId).SingleOrDefault();
+            if (isCompleted)
+            {
+                var applicationUserCourse = _applicationUserCourseRepository.GetApplicationUserCourse(applicationUserId, courseId).SingleOrDefault();
 
-            applicationUserCourse.XPEarned += assignment.XPReward;
+                applicationUserCourse.XPEarned += assignment.XPReward;
 
-            _assignmentRepository.AddApplicationUserAssignment(applicationUserId, assignmentId, true);
+                _applicationUserCourseRepository.UpdateApplicationUserCourse(applicationUserId, courseId, applicationUserCourse.XPEarned);
+
+                AddOrUpdateApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
+            }
+            else
+            {
+                AddOrUpdateApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
+            }
+        }
+
+        private void AddOrUpdateApplicationUserAssignment(string applicationUserId, int assignmentId, bool isCompleted)
+        {
+            var model =_assignmentRepository.GetApplicationUserAssignment(applicationUserId, assignmentId).SingleOrDefault();
+            
+            if(model != null)
+            {
+                _assignmentRepository.UpdateApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
+            }
+            else
+            {
+                _assignmentRepository.AddApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
+            }
         }
 
         private AssignmentViewModel.Assignment GetAssignment(int id)

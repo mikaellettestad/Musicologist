@@ -19,20 +19,13 @@ namespace Musicologist.Repositories
             _context = context;
         }
 
-        public void AddApplicationUserAssignment(string applicationUserId, int assignmentId, bool isCompleted)
+        public void UpdateApplicationUserAssignment(string applicationUserId, int assignmentId, bool isCompleted)
         {
-            var applicationUser = _context.ApplicationUsers.SingleOrDefault(a => a.Id == applicationUserId);
+            var model = _context.ApplicationUserAssignments.SingleOrDefault(a => a.ApplicationUser.Id == applicationUserId && a.Assignment.Id == assignmentId);
 
-            var assignment = GetAssignment(assignmentId).SingleOrDefault();
+            model.IsCompleted = isCompleted;
 
-            var model = new ApplicationUserAssignment()
-            {
-                ApplicationUser = applicationUser,
-                Assignment = assignment,
-                IsCompleted = isCompleted
-            };
-
-            _context.ApplicationUserAssignments.Add(model);
+            _context.ApplicationUserAssignments.Update(model);
 
             _context.SaveChanges();
         }
@@ -40,6 +33,29 @@ namespace Musicologist.Repositories
         public IQueryable<Assignment> GetAssignment(int assignmentId)
         {
             return _context.Assignments.Where(a => a.Id == assignmentId).Include(a => a.Answers);
+        }
+
+        public void AddApplicationUserAssignment(string applicationUserId, int assignmentId, bool isCompleted)
+        {
+            var applicationUser = _context.ApplicationUsers.SingleOrDefault(a => a.Id == applicationUserId);
+
+            var assignment = _context.Assignments.SingleOrDefault(a => a.Id == assignmentId);
+
+            var applicationUserAssignment = new ApplicationUserAssignment()
+            {
+                ApplicationUser = applicationUser,
+                Assignment = assignment,
+                IsCompleted = isCompleted
+            };
+
+            _context.Add(applicationUserAssignment);
+
+            _context.SaveChanges();
+        }
+
+        public IQueryable<ApplicationUserAssignment> GetApplicationUserAssignment(string applicationUserId, int assignmentId)
+        {
+            return _context.ApplicationUserAssignments.Where(a => a.ApplicationUser.Id == applicationUserId && a.Assignment.Id == assignmentId);
         }
     }
 }

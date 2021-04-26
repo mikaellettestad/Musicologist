@@ -19,3 +19,13 @@
     <br />
     <br />
 }
+
+@if (Model.AnswerIsIncorrect)
+{
+    <h1 style="color: red;">Incorrect answer</h1>
+}
+
+@if (Model.AnswerIsCorrect)
+{
+    <h1 style="color: green;">Correct answer</h1>
+}

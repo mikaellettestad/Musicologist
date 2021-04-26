@@ -6,7 +6,11 @@
 
 <h6>XP earned: @Model.CurrentApplicationUserCourse.XPEarned out of @Model.CurrentApplicationUserCourse.XPReward</h6>
 
-@{ bool LessonIsUnlocked = false; }
+@{
+    bool IsUnlocked = false;
+    bool IsFirst = true;
+
+}
 
 @foreach (var coursePart in Model.CurrentApplicationUserCourse.CourseParts)
 {
@@ -27,9 +31,9 @@
                         <i style="color:green;" class="fas fa-check"></i>
                     </td>
 
-                    LessonIsUnlocked = true;
+                    IsUnlocked = true;
                 }
-                else if(LessonIsUnlocked)
+                else if (IsUnlocked || IsFirst)
                 {
                     <td>
                         <a href="/Course/Lesson?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId">
@@ -41,7 +45,8 @@
                         <i style="color:grey;" class="fas fa-unlock"></i>
                     </td>
 
-                    LessonIsUnlocked = false;
+                    IsUnlocked = false;
+                    IsFirst = false;
                 }
                 else
                 {
