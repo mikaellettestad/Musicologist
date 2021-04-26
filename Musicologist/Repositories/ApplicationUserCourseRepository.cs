@@ -44,7 +44,7 @@ namespace Musicologist.Repositories
             _context.SaveChanges();
         }
 
-        public IQueryable<ApplicationUserAssignment> GetAssignment(string applicationUserId, int assignmentId)
+        public IQueryable<ApplicationUserAssignment> GetApplicationUserAssignment(string applicationUserId, int assignmentId)
         {
             return _context.ApplicationUserAssignments.Where(a => a.ApplicationUser.Id == applicationUserId && a.Assignment.Id == assignmentId);
         }

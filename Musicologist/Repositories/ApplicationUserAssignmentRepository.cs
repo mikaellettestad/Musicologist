@@ -10,18 +10,20 @@ using System.Threading.Tasks;
 
 namespace Musicologist.Repositories
 {
-    public class ApplicationUserAssignmentRepository : IApplicationUserAssignmentRepository
+    public class ApplicationUserAssignmentRepository : ApplicationUserCourseRepository, IApplicationUserAssignmentRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public ApplicationUserAssignmentRepository(ApplicationDbContext context)
+        public ApplicationUserAssignmentRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
 
         public void UpdateApplicationUserAssignment(string applicationUserId, int assignmentId, bool isCompleted)
         {
-            var model = _context.ApplicationUserAssignments.SingleOrDefault(a => a.ApplicationUser.Id == applicationUserId && a.Assignment.Id == assignmentId);
+            //var model = _context.ApplicationUserAssignments.SingleOrDefault(a => a.ApplicationUser.Id == applicationUserId && a.Assignment.Id == assignmentId);
+
+            var model = GetApplicationUserAssignment(applicationUserId, assignmentId).SingleOrDefault();
 
             model.IsCompleted = isCompleted;
 
@@ -53,9 +55,9 @@ namespace Musicologist.Repositories
             _context.SaveChanges();
         }
 
-        public IQueryable<ApplicationUserAssignment> GetApplicationUserAssignment(string applicationUserId, int assignmentId)
-        {
-            return _context.ApplicationUserAssignments.Where(a => a.ApplicationUser.Id == applicationUserId && a.Assignment.Id == assignmentId);
-        }
+        //public IQueryable<ApplicationUserAssignment> GetApplicationUserAssignment(string applicationUserId, int assignmentId)
+        //{
+        //    return _context.ApplicationUserAssignments.Where(a => a.ApplicationUser.Id == applicationUserId && a.Assignment.Id == assignmentId);
+        //}
     }
 }

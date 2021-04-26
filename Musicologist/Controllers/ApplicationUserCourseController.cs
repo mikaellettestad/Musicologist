@@ -135,7 +135,7 @@ namespace Musicologist.Controllers
             {
                 foreach (var lesson in coursePart.Lessons)
                 {
-                    var assignment = _applicationUserCourseRepository.GetAssignment(applicationUserId, lesson.Assignment.Id).SingleOrDefault();
+                    var assignment = _applicationUserCourseRepository.GetApplicationUserAssignment(applicationUserId, lesson.Assignment.Id).SingleOrDefault();
                     
                     if (assignment != null)
                     {
