@@ -2,19 +2,15 @@
 using Musicologist.Data;
 using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Musicologist.Repositories
 {
-    public class ApplicationUserCourseRepository : IApplicationUserCourseRepository
+    public class ApplicationUserCourseRepository : ApplicationUserRepository, IApplicationUserCourseRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public ApplicationUserCourseRepository(ApplicationDbContext context)
+        public ApplicationUserCourseRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
@@ -33,6 +29,7 @@ namespace Musicologist.Repositories
             return _context.ApplicationUserCourses.Where(c => c.ApplicationUser.Id == applicationUserId && c.Course.Id == courseId);
         }
 
+        //Service-klass
         public void UpdateApplicationUserCourse(string applicationUserId, int courseId, int XPEarned)
         {
             var applicationUserCourse = GetApplicationUserCourse(applicationUserId, courseId).SingleOrDefault();
@@ -49,12 +46,13 @@ namespace Musicologist.Repositories
             return _context.ApplicationUserAssignments.Where(a => a.ApplicationUser.Id == applicationUserId && a.Assignment.Id == assignmentId);
         }
 
+        //Service-klass
         public void AddApplicationUserCourse(string applicationUserId, int courseId)
         {
             var course = _context.Courses.SingleOrDefault(c => c.Id == courseId);
 
-            var applicationUser = _context.ApplicationUsers.SingleOrDefault(a => a.Id == applicationUserId);
-            
+            var applicationUser = GetApplicationUser(applicationUserId).SingleOrDefault();
+
             var model = new ApplicationUserCourse() { 
                 ApplicationUser = applicationUser,
                 Course = course,
@@ -63,12 +61,6 @@ namespace Musicologist.Repositories
             _context.ApplicationUserCourses.Add(model);
 
             _context.SaveChanges();
-        }
-
-        public IQueryable<ApplicationUserCourse> GetApplicationUserCourses(string applicationUserId)
-        {
-            return _context.ApplicationUserCourses.Where(a => a.ApplicationUser.Id == applicationUserId)
-                .Include(a => a.Course);
         }
 
         public IQueryable<Course> GetCourseDetails(int courseId)

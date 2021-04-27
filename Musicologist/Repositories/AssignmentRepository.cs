@@ -2,11 +2,7 @@
 using Musicologist.Data;
 using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Musicologist.Repositories
 {
@@ -19,6 +15,7 @@ namespace Musicologist.Repositories
             _context = context;
         }
 
+        //Service-klass
         public void UpdateApplicationUserAssignment(string applicationUserId, int assignmentId, bool isCompleted)
         {
             var model = GetApplicationUserAssignment(applicationUserId, assignmentId).SingleOrDefault();
@@ -35,6 +32,7 @@ namespace Musicologist.Repositories
             return _context.Assignments.Where(a => a.Id == assignmentId).Include(a => a.Answers);
         }
 
+        //Service-klass
         public void AddApplicationUserAssignment(string applicationUserId, int assignmentId, bool isCompleted)
         {
             var applicationUser = _context.ApplicationUsers.SingleOrDefault(a => a.Id == applicationUserId);

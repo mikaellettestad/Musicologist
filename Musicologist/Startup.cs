@@ -9,6 +9,8 @@ using Musicologist.Data;
 using Musicologist.Models;
 using Musicologist.Repositories;
 using Musicologist.Repositories.Interfaces;
+using Musicologist.Services;
+using Musicologist.Services.Interfaces;
 
 namespace Musicologist
 {
@@ -37,6 +39,7 @@ namespace Musicologist
             services.AddTransient<IAssignmentRepository, AssignmentRepository>();
             services.AddTransient<IApplicationUserCourseRepository, ApplicationUserCourseRepository>();
             services.AddTransient<ILessonRepository, LessonRepository>();
+            services.AddTransient<IApplicationUserAssignmentService, ApplicationUserAssignmentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

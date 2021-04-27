@@ -7,18 +7,19 @@ using System.Linq;
 
 namespace Musicologist.Controllers
 {
-    public class ApplicationUserAssignmentController : Controller
+    public class AssignmentController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IAssignmentRepository _repository;
         public AssignmentViewModel Model;
-        public ApplicationUserAssignmentController(UserManager<ApplicationUser> userManager, IAssignmentRepository repository)
+        public AssignmentController(UserManager<ApplicationUser> userManager, IAssignmentRepository repository)
         {
             _userManager = userManager;
             _repository = repository;
             Model = new AssignmentViewModel();
         }
 
+        //Servoce-klass
         public IActionResult Index(int assignmentId, int courseId)
         {
             Model.CurrentAssignment = GetAssignment(assignmentId);
@@ -32,10 +33,22 @@ namespace Musicologist.Controllers
             return View(Model);
         }
 
+        //Service-klass
         [HttpPost]
         public IActionResult Index(AssignmentViewModel model)
         {
             Model.CurrentAssignment = GetAssignment(model.CurrentAssignment.Id);
+
+            Model.CurrentCourseId = model.CurrentCourseId;
+
+            //if (!model.CurrentAnswer.IsCorrect)
+            //{
+            //    Model.AnswerIsCorrect = false;
+
+            //    Model.AnswerIsIncorrect = true;
+
+            //    return View(Model);
+            //}
 
             if (model.CurrentAnswer.IsCorrect)
             {
@@ -51,8 +64,6 @@ namespace Musicologist.Controllers
                 Model.AnswerIsCorrect = false;
                 Model.AnswerIsIncorrect = true;
             }
-
-            Model.CurrentCourseId = model.CurrentCourseId;
 
             return View(Model);
         }

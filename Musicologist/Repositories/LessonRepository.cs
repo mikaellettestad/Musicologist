@@ -2,11 +2,7 @@
 using Musicologist.Data;
 using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Musicologist.Repositories
 {
@@ -26,6 +22,5 @@ namespace Musicologist.Repositories
                 .Include(lesson => lesson.LessonImages)
                 .Include(lesson => lesson.Assignment);
         }
-
     }
 }

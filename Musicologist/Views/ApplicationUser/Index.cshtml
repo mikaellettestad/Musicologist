@@ -14,7 +14,7 @@
                 <div class="row">
 
                     <div class="col-lg-3">
-                        <h3>@Model.CurrentApplicationUser.UserName</h3>
+                        <h3>@Model.UserName</h3>
                     </div>
 
                     <div class="col-lg-1">
@@ -24,7 +24,7 @@
                 <div class="row">
 
                     <div class="col-lg-3">
-                        <h6>Lvl 5 @Model.CurrentApplicationUser.UserStatistics.XPGainedTotal XP</h6>
+                        <h6>Lvl 5 @Model.XPEarned XP</h6>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
 
     <div class="row">
 
-        @foreach (var course in Model.CurrentApplicationUser.ApplicationUserCourses)
+        @foreach (var course in Model.ApplicationUserCourses)
         {
             <a href="/ApplicationUserCourse/Index?courseId=@course.Id">
                 <div class="course zoom col-12 col-sm-4 col-md-4 col-lg-4 box col-xl-4 box">
