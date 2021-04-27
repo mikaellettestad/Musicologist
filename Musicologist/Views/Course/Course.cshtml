@@ -1,16 +1,13 @@
 ﻿@model Musicologist.ViewModels.CourseViewModel
 
-<h1>@Model.CurrentCourse.Title</h1>
+<div class="container">
 
-@foreach (var coursePart in Model.CurrentCourse.CourseParts)
-{
-    <h3>@coursePart.Title</h3>
-    foreach (var lesson in coursePart.Lessons)
-    {
-        <a href="/Lesson/Index?lessonId=@lesson.Id">
-            <p>@lesson.Title</p>
-        </a>
-        <p>@lesson.Description</p>
-    }
-    <hr />
-}
+    <h1>@Model.CurrentCourse.Title</h1>
+
+    <h3>@Model.CurrentCourse.Description</h3>
+
+    <h3>Total XP: @Model.CurrentCourse.XPReward</h3>
+
+    <a href="/ApplicationUserCourse/AddCourse?courseId=@Model.CurrentCourse.Id" class="btn btn-success">Add to my courses</a>
+
+</div>

@@ -12,7 +12,6 @@ namespace Musicologist.ViewModels
         public Answer CurrentAnswer { get; set; }
         public int CurrentCourseId { get; set; }
         public bool AnswerIsIncorrect { get; set; }
-
         public bool AnswerIsCorrect { get; set; }
         public class Assignment
         {
