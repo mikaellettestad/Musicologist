@@ -65,6 +65,12 @@ namespace Musicologist.Repositories
             _context.SaveChanges();
         }
 
+        public IQueryable<ApplicationUserCourse> GetApplicationUserCourses(string applicationUserId)
+        {
+            return _context.ApplicationUserCourses.Where(a => a.ApplicationUser.Id == applicationUserId)
+                .Include(a => a.Course);
+        }
+
         public IQueryable<Course> GetCourseDetails(int courseId)
         {
             return _context.Courses.Where(c => c.Id == courseId);

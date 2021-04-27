@@ -7,11 +7,10 @@
     <h3>@coursePart.Title</h3>
     foreach (var lesson in coursePart.Lessons)
     {
-        <a href="/Course/Lesson?lessonId=@lesson.Id">
+        <a href="/Lesson/Index?lessonId=@lesson.Id">
             <p>@lesson.Title</p>
         </a>
         <p>@lesson.Description</p>
     }
-
     <hr />
 }

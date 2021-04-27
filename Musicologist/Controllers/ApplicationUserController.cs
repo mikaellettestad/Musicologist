@@ -4,10 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
-using Musicologist.Types;
 using Musicologist.ViewModels;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Musicologist.Controllers
 {
@@ -31,44 +29,44 @@ namespace Musicologist.Controllers
 
         public IActionResult Index()
         {
-            Model.CurrentApplicationUser = GetProfile();
+            Model.CurrentApplicationUser = GetApplicationUser();
 
             return View(Model);
         }
-        public IActionResult Edit()
-        {
-            Model.CurrentApplicationUser = GetProfile();
+        //public IActionResult Edit()
+        //{
+        //    Model.CurrentApplicationUser = GetApplicationUser();
 
-            return View(Model);
-        }
+        //    return View(Model);
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(ApplicationUserViewModel applicationUserViewModel)
-        {
-            var result = UpdateProfile(applicationUserViewModel.CurrentApplicationUser);
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult Edit(ApplicationUserViewModel applicationUserViewModel)
+        //{
+        //    var result = UpdateProfile(applicationUserViewModel.CurrentApplicationUser);
 
-            if(result.Result == Update.Succeeded)
-            {
-                Model.CurrentApplicationUser = GetProfile();
+        //    if(result.Result == Update.Succeeded)
+        //    {
+        //        Model.CurrentApplicationUser = GetApplicationUser();
 
-                Model.ConfirmationMessage = "Saved profile";
+        //        Model.ConfirmationMessage = "Saved profile";
 
-                return View(Model);
-            }
+        //        return View(Model);
+        //    }
 
-            Model.CurrentApplicationUser = GetProfile();
+        //    Model.CurrentApplicationUser = GetApplicationUser();
 
-            Model.ErrorMessage = result.Result.ToString();
+        //    Model.ErrorMessage = result.Result.ToString();
 
-            return View(Model);
-        }
+        //    return View(Model);
+        //}
 
-        private ApplicationUserViewModel.ApplicationUser GetProfile()
+        private ApplicationUserViewModel.ApplicationUser GetApplicationUser()
         {
             string Id = _userManager.GetUserId(User);
 
-            var applicationUser = _applicationUserRepository.GetUserProfile(_userManager.GetUserId(User))
+            var applicationUser = _applicationUserRepository.GetApplicationUser(_userManager.GetUserId(User))
                 .Select(x => new ApplicationUserViewModel.ApplicationUser
                 {
                     UserName = x.UserName,
@@ -89,22 +87,22 @@ namespace Musicologist.Controllers
             return applicationUser;
         }
 
-        private async Task<Update> UpdateProfile(ApplicationUserViewModel.ApplicationUser currentApplicationUser)
-        {
-            var applicationUser = _applicationUserRepository.GetUserProfile(_userManager.GetUserId(User)).SingleOrDefault();
+        //private async Task<Update> UpdateProfile(ApplicationUserViewModel.ApplicationUser currentApplicationUser)
+        //{
+        //    var applicationUser = _applicationUserRepository.GetApplicationUser(_userManager.GetUserId(User)).SingleOrDefault();
 
-            applicationUser.UserName = currentApplicationUser.Email;
+        //    applicationUser.UserName = currentApplicationUser.Email;
 
-            applicationUser.Email = currentApplicationUser.Email;
+        //    applicationUser.Email = currentApplicationUser.Email;
 
-            var result = await _userManager.UpdateAsync(applicationUser);
+        //    var result = await _userManager.UpdateAsync(applicationUser);
 
-            if (result.Succeeded)
-            {
-                return Update.Succeeded;
-            }
+        //    if (result.Succeeded)
+        //    {
+        //        return Update.Succeeded;
+        //    }
 
-            return Update.Failed;
-        }
+        //    return Update.Failed;
+        //}
     }
 }

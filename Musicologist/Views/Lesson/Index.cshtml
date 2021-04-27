@@ -1,0 +1,17 @@
+﻿@model Musicologist.ViewModels.LessonViewModel
+
+<h1>@Model.Title</h1>
+
+<h3>@Model.Description</h3>
+
+<h3>Lesson:</h3>
+
+@foreach (var text in Model.Texts)
+{
+    <h6>@text.Title</h6>
+    <p>@text.Text</p>
+}
+
+<hr />
+
+<a href="/ApplicationUserAssignment/Index?assignmentId=@Model.AssignmentId&courseId=@Model.CourseId" class="btn btn-success">Assignment</a>

@@ -10,24 +10,14 @@ namespace Musicologist.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IApplicationUserRepository _applicationUserRepository;
 
-        public HomeController(ILogger<HomeController> logger,
-            UserManager<ApplicationUser> userManager,
-            IApplicationUserRepository applicationUserRepository)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _userManager = userManager;
-            _applicationUserRepository = applicationUserRepository;
         }
 
         public IActionResult Index()
         {
-            string userId = _userManager.GetUserId(User);
-
-            var applicationUser = _applicationUserRepository.GetUserProfile(userId);
-
             return View();
         }
 

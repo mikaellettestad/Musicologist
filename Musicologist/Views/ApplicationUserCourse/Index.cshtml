@@ -22,7 +22,7 @@
                 @if (lesson.Assignment.IsCompleted)
                 {
                     <td>
-                        <a href="/Course/Lesson?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId">
+                        <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId">
                             <p>@lesson.Title</p>
                         </a>
                     </td>
@@ -36,7 +36,7 @@
                 else if (IsUnlocked || IsFirst)
                 {
                     <td>
-                        <a href="/Course/Lesson?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId">
+                        <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId">
                             <p>@lesson.Title</p>
                         </a>
                     </td>

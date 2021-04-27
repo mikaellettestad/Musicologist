@@ -21,8 +21,6 @@ namespace Musicologist.Repositories
 
         public void UpdateApplicationUserAssignment(string applicationUserId, int assignmentId, bool isCompleted)
         {
-            //var model = _context.ApplicationUserAssignments.SingleOrDefault(a => a.ApplicationUser.Id == applicationUserId && a.Assignment.Id == assignmentId);
-
             var model = GetApplicationUserAssignment(applicationUserId, assignmentId).SingleOrDefault();
 
             model.IsCompleted = isCompleted;
@@ -54,10 +52,5 @@ namespace Musicologist.Repositories
 
             _context.SaveChanges();
         }
-
-        //public IQueryable<ApplicationUserAssignment> GetApplicationUserAssignment(string applicationUserId, int assignmentId)
-        //{
-        //    return _context.ApplicationUserAssignments.Where(a => a.ApplicationUser.Id == applicationUserId && a.Assignment.Id == assignmentId);
-        //}
     }
 }

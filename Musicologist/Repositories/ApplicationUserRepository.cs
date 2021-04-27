@@ -16,9 +16,9 @@ namespace Musicologist.Repositories
             _context = context;
         }
 
-        public IQueryable<ApplicationUser> GetUserProfile(string Id)
+        public IQueryable<ApplicationUser> GetApplicationUser(string applicationUserId)
         {
-            return _context.ApplicationUsers.Where(x => x.Id == Id)
+            return _context.ApplicationUsers.Where(x => x.Id == applicationUserId)
                 .Include(x => x.UserStatistics);
         }
         public IQueryable<ApplicationUserCourse> GetApplicationUserCourses(string Id)

@@ -16,16 +16,15 @@ namespace Musicologist.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
 
         private readonly ICourseRepository _courseRepository;
-        private readonly IApplicationUserAssignmentRepository _assignmentRepository;
+        //private readonly IApplicationUserAssignmentRepository _assignmentRepository;
         public CourseViewModel Model;
 
-        public CourseController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IApplicationUserRepository applicationUserRepository, ICourseRepository courseRepository,
-            IApplicationUserAssignmentRepository assignmentRepository)
+        public CourseController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IApplicationUserRepository applicationUserRepository, ICourseRepository courseRepository)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _courseRepository = courseRepository;
-            _assignmentRepository = assignmentRepository;
+            //_assignmentRepository = assignmentRepository;
             Model = new CourseViewModel();
         }
 
