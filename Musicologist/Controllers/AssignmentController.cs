@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
+using Musicologist.Services.Interfaces;
 using Musicologist.ViewModels;
 using System.Linq;
 
@@ -11,21 +12,24 @@ namespace Musicologist.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IAssignmentRepository _repository;
+        private readonly IAssignmentService _service;
         public AssignmentViewModel Model;
-        public AssignmentController(UserManager<ApplicationUser> userManager, IAssignmentRepository repository)
+        public AssignmentController(UserManager<ApplicationUser> userManager, IAssignmentRepository repository, IAssignmentService service)
         {
             _userManager = userManager;
             _repository = repository;
+            _service = service;
             Model = new AssignmentViewModel();
         }
 
-        //Servoce-klass
+        //Skapa en SetState()
+
         public IActionResult Index(int assignmentId, int courseId)
         {
             Model.CurrentAssignment = GetAssignment(assignmentId);
 
             Model.CurrentCourseId = courseId;
-
+             
             Model.AnswerIsCorrect = false;
 
             Model.AnswerIsIncorrect = false;
@@ -52,54 +56,20 @@ namespace Musicologist.Controllers
 
             if (model.CurrentAnswer.IsCorrect)
             {
-                UpdateResults(_userManager.GetUserId(User), model.CurrentCourseId, model.CurrentAssignment.Id, true);
+                _service.UpdateResults(_userManager.GetUserId(User), model.CurrentCourseId, model.CurrentAssignment.Id, true);
 
                 Model.AnswerIsCorrect = true;
                 Model.AnswerIsIncorrect = false;
             }
             else
             {
-                UpdateResults(_userManager.GetUserId(User), model.CurrentCourseId, model.CurrentAssignment.Id, false);
+                _service.UpdateResults(_userManager.GetUserId(User), model.CurrentCourseId, model.CurrentAssignment.Id, false);
 
                 Model.AnswerIsCorrect = false;
                 Model.AnswerIsIncorrect = true;
             }
 
             return View(Model);
-        }
-
-        private void UpdateResults(string applicationUserId, int courseId, int assignmentId, bool isCompleted)
-        {
-            var assignment = _repository.GetAssignment(assignmentId).SingleOrDefault();
-
-            if (isCompleted)
-            {
-                var applicationUserCourse = _repository.GetApplicationUserCourse(applicationUserId, courseId).SingleOrDefault();
-
-                applicationUserCourse.XPEarned += assignment.XPReward;
-
-                _repository.UpdateApplicationUserCourse(applicationUserId, courseId, applicationUserCourse.XPEarned);
-
-                AddOrUpdateApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
-            }
-            else
-            {
-                AddOrUpdateApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
-            }
-        }
-
-        private void AddOrUpdateApplicationUserAssignment(string applicationUserId, int assignmentId, bool isCompleted)
-        {
-            var model =_repository.GetApplicationUserAssignment(applicationUserId, assignmentId).SingleOrDefault();
-            
-            if(model != null)
-            {
-                _repository.UpdateApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
-            }
-            else
-            {
-                _repository.AddApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
-            }
         }
 
         private AssignmentViewModel.Assignment GetAssignment(int id)

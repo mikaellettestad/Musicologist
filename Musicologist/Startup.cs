@@ -39,7 +39,7 @@ namespace Musicologist
             services.AddTransient<IAssignmentRepository, AssignmentRepository>();
             services.AddTransient<IApplicationUserCourseRepository, ApplicationUserCourseRepository>();
             services.AddTransient<ILessonRepository, LessonRepository>();
-            services.AddTransient<IApplicationUserAssignmentService, ApplicationUserAssignmentService>();
+            services.AddTransient<IAssignmentService, AssignmentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
