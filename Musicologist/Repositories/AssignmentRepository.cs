@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Musicologist.Repositories
 {
-    public class ApplicationUserAssignmentRepository : ApplicationUserCourseRepository, IApplicationUserAssignmentRepository
+    public class AssignmentRepository : ApplicationUserCourseRepository, IAssignmentRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public ApplicationUserAssignmentRepository(ApplicationDbContext context) : base(context)
+        public AssignmentRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }

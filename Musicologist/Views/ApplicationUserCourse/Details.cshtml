@@ -1,0 +1,20 @@
+﻿@model Musicologist.ViewModels.ApplicationUserCourseViewModel
+
+<div class="container">
+
+    <h1>@Model.CurrentApplicationUserCourse.Title</h1>
+
+    <h3>@Model.CurrentApplicationUserCourse.Description</h3>
+
+    <h3>Total XP: @Model.CurrentApplicationUserCourse.XPReward</h3>
+
+    @if (Model.CurrentApplicationUserCourse.IsAdded)
+    {
+    <a href="/ApplicationUserCourse/Index?courseId=@Model.CurrentApplicationUserCourse.Id" class="btn btn-success">Continue course</a>
+    }
+    else
+    {
+    <a href="/ApplicationUserCourse/AddCourse?courseId=@Model.CurrentApplicationUserCourse.Id" class="btn btn-success">Add to my courses</a>
+    }
+
+</div>

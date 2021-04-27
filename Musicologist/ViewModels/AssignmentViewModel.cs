@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Musicologist.ViewModels
 {
@@ -22,7 +18,6 @@ namespace Musicologist.ViewModels
             public int XPReward { get; set; }
             public List<Answer> Answers { get; set; }
         }
-
         public class Answer
         {
             public int Id { get; set; }

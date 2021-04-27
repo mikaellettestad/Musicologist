@@ -75,5 +75,15 @@ namespace Musicologist.Repositories
         {
             return _context.Courses.Where(c => c.Id == courseId);
         }
+
+        public IQueryable<Course> GetCourses()
+        {
+            return _context.Courses;
+        }
+
+        public IQueryable<Course> GetCourse(int Id)
+        {
+            return _context.Courses.Where(c => c.Id == Id);
+        }
     }
 }

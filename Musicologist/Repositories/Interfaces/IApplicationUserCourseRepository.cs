@@ -12,5 +12,6 @@ namespace Musicologist.Repositories.Interfaces
         IQueryable<Course> GetCourseDetails(int courseId);
         void AddApplicationUserCourse(string applicationUserId, int courseId);
         public void UpdateApplicationUserCourse(string applicationUserId, int courseId, int XPEarned);
+        IQueryable<Course> GetCourse(int Id);
     }
 }

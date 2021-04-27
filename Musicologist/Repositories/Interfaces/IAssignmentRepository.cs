@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Musicologist.Repositories.Interfaces
 {
-    public interface IApplicationUserAssignmentRepository : IApplicationUserCourseRepository
+    public interface IAssignmentRepository : IApplicationUserCourseRepository
     {
         IQueryable<Assignment> GetAssignment(int assignmentid);
         void UpdateApplicationUserAssignment(string applicationUserId, int assignmentId, bool IsCompleted);

@@ -10,14 +10,12 @@ namespace Musicologist.Controllers
     public class ApplicationUserAssignmentController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IApplicationUserAssignmentRepository _assignmentRepository;
-        private readonly IApplicationUserCourseRepository _applicationUserCourseRepository;
+        private readonly IAssignmentRepository _repository;
         public AssignmentViewModel Model;
-        public ApplicationUserAssignmentController(UserManager<ApplicationUser> userManager, IApplicationUserAssignmentRepository assignmentRepository, IApplicationUserCourseRepository applicationUserCourseRepository)
+        public ApplicationUserAssignmentController(UserManager<ApplicationUser> userManager, IAssignmentRepository repository)
         {
             _userManager = userManager;
-            _assignmentRepository = assignmentRepository;
-            _applicationUserCourseRepository = applicationUserCourseRepository;
+            _repository = repository;
             Model = new AssignmentViewModel();
         }
 
@@ -61,15 +59,15 @@ namespace Musicologist.Controllers
 
         private void UpdateResults(string applicationUserId, int courseId, int assignmentId, bool isCompleted)
         {
-            var assignment = _assignmentRepository.GetAssignment(assignmentId).SingleOrDefault();
+            var assignment = _repository.GetAssignment(assignmentId).SingleOrDefault();
 
             if (isCompleted)
             {
-                var applicationUserCourse = _applicationUserCourseRepository.GetApplicationUserCourse(applicationUserId, courseId).SingleOrDefault();
+                var applicationUserCourse = _repository.GetApplicationUserCourse(applicationUserId, courseId).SingleOrDefault();
 
                 applicationUserCourse.XPEarned += assignment.XPReward;
 
-                _applicationUserCourseRepository.UpdateApplicationUserCourse(applicationUserId, courseId, applicationUserCourse.XPEarned);
+                _repository.UpdateApplicationUserCourse(applicationUserId, courseId, applicationUserCourse.XPEarned);
 
                 AddOrUpdateApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
             }
@@ -81,21 +79,21 @@ namespace Musicologist.Controllers
 
         private void AddOrUpdateApplicationUserAssignment(string applicationUserId, int assignmentId, bool isCompleted)
         {
-            var model =_assignmentRepository.GetApplicationUserAssignment(applicationUserId, assignmentId).SingleOrDefault();
+            var model =_repository.GetApplicationUserAssignment(applicationUserId, assignmentId).SingleOrDefault();
             
             if(model != null)
             {
-                _assignmentRepository.UpdateApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
+                _repository.UpdateApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
             }
             else
             {
-                _assignmentRepository.AddApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
+                _repository.AddApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
             }
         }
 
         private AssignmentViewModel.Assignment GetAssignment(int id)
         {
-            return _assignmentRepository.GetAssignment(id).Select(a => new AssignmentViewModel.Assignment
+            return _repository.GetAssignment(id).Select(a => new AssignmentViewModel.Assignment
             {
                 Id = a.Id,
                 Title = a.Title,

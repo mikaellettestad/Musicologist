@@ -4,24 +4,20 @@ using Microsoft.AspNetCore.Mvc;
 using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
 using Musicologist.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Musicologist.Controllers
 {
     public class ApplicationUserCourseController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IApplicationUserCourseRepository _applicationUserCourseRepository;
+        private readonly IApplicationUserCourseRepository _repository;
         public ApplicationUserCourseViewModel Model;
 
-        public ApplicationUserCourseController(UserManager<ApplicationUser> userManager, IApplicationUserCourseRepository applicationUserCourseRepository)
+        public ApplicationUserCourseController(UserManager<ApplicationUser> userManager, IApplicationUserCourseRepository repository)
         {
             _userManager = userManager;
-            _applicationUserCourseRepository = applicationUserCourseRepository;
+            _repository =repository;
             Model = new ApplicationUserCourseViewModel();
         }
         
@@ -34,33 +30,37 @@ namespace Musicologist.Controllers
             return View(Model);
         }
 
-        public IActionResult CourseDetails(int courseId)
+        public IActionResult Details(int courseId)
         {
             var CourseIsAdded = CheckIfCourseIsAdded(_userManager.GetUserId(User), courseId);
 
-            var model = new CourseDetailsViewModel();
-
-            model = GetCourseDetails(courseId);
+            var model = GetDetails(courseId);
 
             if (CourseIsAdded)
-                model.IsAdded = true;
+                model.CurrentApplicationUserCourse.IsAdded = true;
             else
-                model.IsAdded = false;
+                model.CurrentApplicationUserCourse.IsAdded = false;
 
             return View(model);
         }
 
-
+        private ApplicationUserCourseViewModel GetDetails(int courseId)
+        {
+            return _repository.GetCourse(courseId).Select(course => new ApplicationUserCourseViewModel
+            {
+                CurrentApplicationUserCourse = new ApplicationUserCourseViewModel.ApplicationUserCourse
+                {
+                    Id = course.Id,
+                    Title = course.Title,
+                    Description = course.Description,
+                    XPReward = course.XP
+                }
+            }).SingleOrDefault();
+        }
 
         [Authorize(Roles = "User")]
         public IActionResult AddCourse(int courseId)
         {
-
-            // Det som ska hända här
-            // Vad behövs för att en kurs ska kunna läggas till?
-            // Jo, att en ApplicationUserCourse med kurs och användarId sparas i databasen
-            // För det behövs anrop till ApplicationUserCourseRepopsitory
-
             var CourseIsAdded = CheckIfCourseIsAdded(_userManager.GetUserId(User), courseId);
 
             if (CourseIsAdded)
@@ -70,17 +70,18 @@ namespace Musicologist.Controllers
                 return View("Index", Model);
             }
 
-            _applicationUserCourseRepository.AddApplicationUserCourse(_userManager.GetUserId(User), courseId);
+            _repository.AddApplicationUserCourse(_userManager.GetUserId(User), courseId);
 
             Model.CurrentApplicationUserCourse = GetApplicationUserCourse(_userManager.GetUserId(User), courseId);
-            // Tills vidare
-            return View("Index", Model);
 
+            Model.CurrentCourseId = courseId;
+
+            return View("Index", Model);
         }
 
         private bool CheckIfCourseIsAdded(string applicationUserId, int courseId)
         {
-            var result =_applicationUserCourseRepository.GetApplicationUserCourse(applicationUserId, courseId).SingleOrDefault();
+            var result =_repository.GetApplicationUserCourse(applicationUserId, courseId).SingleOrDefault();
 
             if (result != null)
                 return true;
@@ -88,22 +89,9 @@ namespace Musicologist.Controllers
                 return false;
         }
 
-        private CourseDetailsViewModel GetCourseDetails(int courseId)
-        {
-            return _applicationUserCourseRepository.GetCourseDetails(courseId).Select(c => new CourseDetailsViewModel
-            {
-                Id = c.Id,
-                Title = c.Title,
-                Description = c.Description,
-                XPReward = c.XP
-
-            }).SingleOrDefault();
-        }
-
-        // Felhantering?
         private ApplicationUserCourseViewModel.ApplicationUserCourse GetApplicationUserCourse(string applicationUserId, int courseId)
         {
-            var applicationUserCourse =_applicationUserCourseRepository.GetCourse(applicationUserId, courseId)
+            var applicationUserCourse =_repository.GetCourse(applicationUserId, courseId)
                 .Select(c => new ApplicationUserCourseViewModel.ApplicationUserCourse {
                     XPEarned = c.XPEarned,
                     Id = c.Course.Id,
@@ -135,7 +123,7 @@ namespace Musicologist.Controllers
             {
                 foreach (var lesson in coursePart.Lessons)
                 {
-                    var assignment = _applicationUserCourseRepository.GetApplicationUserAssignment(applicationUserId, lesson.Assignment.Id).SingleOrDefault();
+                    var assignment = _repository.GetApplicationUserAssignment(applicationUserId, lesson.Assignment.Id).SingleOrDefault();
                     
                     if (assignment != null)
                     {

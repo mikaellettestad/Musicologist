@@ -12,11 +12,11 @@
         {
             if (SignInManager.IsSignedIn(User))
             {
-                route = "/ApplicationUserCourse/CourseDetails?courseId=" + course.Id;
+                route = "/ApplicationUserCourse/Details?courseId=" + course.Id;
             }
             else
             {
-                route = "/Course/Course?courseId=" + course.Id;
+                route = "/Course/Details?courseId=" + course.Id;
             }
             <a href="@route">
                 <div class="course zoom col-12 col-sm-4 col-md-4 col-lg-4 box col-xl-4 box">

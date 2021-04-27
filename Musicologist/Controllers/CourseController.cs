@@ -25,9 +25,9 @@ namespace Musicologist.Controllers
             return View(Model);
         }
 
-        public IActionResult Course(int courseId)
+        public IActionResult Details(int courseId)
         {
-            return View(GetCourse(courseId));
+            return View(GetDetails(courseId));
         }
 
         private List<CourseViewModel.Course> GetCourses()
@@ -41,7 +41,7 @@ namespace Musicologist.Controllers
             }).ToList();
         }
 
-        private CourseViewModel GetCourse(int courseId)
+        private CourseViewModel GetDetails(int courseId)
         {
             return _repository.GetCourse(courseId).Select(course => new CourseViewModel
             {

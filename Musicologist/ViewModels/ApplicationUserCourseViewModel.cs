@@ -15,6 +15,7 @@ namespace Musicologist.ViewModels
             public int XPEarned { get; set; }
             public string ImageUrl { get; set; }
             public bool IsCompleted { get; set; }
+            public bool IsAdded { get; set; }
             public List<CoursePart> CourseParts { get; set; }
         }
 
