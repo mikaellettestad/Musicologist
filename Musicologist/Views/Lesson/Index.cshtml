@@ -14,4 +14,12 @@
 
 <hr />
 
-<a href="/Assignment/Index?assignmentId=@Model.AssignmentId&courseId=@Model.CourseId" class="btn btn-success">Assignment</a>
+@if (Model.IsCompleted)
+{
+    <p class="btn btn-secondary">Assignment</p>
+    <i style="color:green;" class="fas fa-check"></i>
+}
+else
+{
+    <a href="/Assignment/Index?assignmentId=@Model.AssignmentId&courseId=@Model.CourseId" class="btn btn-success">Assignment</a>
+}

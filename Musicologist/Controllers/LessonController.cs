@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
 using Musicologist.ViewModels;
 using System.Linq;
@@ -7,27 +9,30 @@ namespace Musicologist.Controllers
 {
     public class LessonController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILessonRepository _repository;
 
         public LessonViewModel Model { get; set; }
-        public LessonController(ILessonRepository repository)
+        public LessonController(UserManager<ApplicationUser> userManager, ILessonRepository repository)
         {
-            Model = new LessonViewModel();
+            _userManager = userManager;
             _repository = repository;
+            Model = new LessonViewModel();
         }
 
         public IActionResult Index(int lessonId, int courseId)
         {
-            Model = GetLesson(lessonId);
+            Model = GetLesson(_userManager.GetUserId(User), lessonId);
 
             Model.CourseId = courseId;
 
             return View(Model);
         }
 
-        private LessonViewModel GetLesson(int lessonId)
+        //Service-klass
+        private LessonViewModel GetLesson(string applicationUserId, int lessonId)
         {
-            return _repository.GetLesson(lessonId).Select(lesson => new LessonViewModel
+            var model = _repository.GetLesson(lessonId).Select(lesson => new LessonViewModel
             {
                 Id = lesson.Id,
                 Title = lesson.Title,
@@ -44,6 +49,15 @@ namespace Musicologist.Controllers
                 }).ToList(),
                 AssignmentId = lesson.Assignment.Id
             }).SingleOrDefault();
+
+            var applicationUserAssignment = _repository.GetApplicationUserAssignment(applicationUserId, model.AssignmentId).SingleOrDefault();
+
+            if (applicationUserAssignment != null)
+                model.IsCompleted = true;
+            else
+                model.IsCompleted = false;
+
+            return model;
         }
     }
 }

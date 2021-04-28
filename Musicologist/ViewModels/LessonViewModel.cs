@@ -11,7 +11,7 @@ namespace Musicologist.ViewModels
         public List<LessonImage> Images { get; set; }
         public int CourseId { get; set; }
         public int AssignmentId { get; set; }
-
+        public bool IsCompleted { get; set; }
         public class LessonText
         {
             public int Id { get; set; }
