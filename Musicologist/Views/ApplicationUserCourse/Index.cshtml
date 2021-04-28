@@ -6,10 +6,11 @@
 
 <h6>XP earned: @Model.CurrentApplicationUserCourse.XPEarned out of @Model.CurrentApplicationUserCourse.XPReward</h6>
 
-@{
-    bool IsUnlocked = false;
-    bool IsFirst = true;
 
+@{
+    //bool IsUnlocked = false;
+    //bool IsFirst = true;
+    int i = 0;
 }
 
 @foreach (var coursePart in Model.CurrentApplicationUserCourse.CourseParts)
@@ -19,7 +20,7 @@
         @foreach (var lesson in coursePart.Lessons)
         {
             <tr>
-                @if (lesson.Assignment.IsCompleted)
+                @if (i < Model.CurrentApplicationUserCourse.AssignmentsCompleted)
                 {
                     <td>
                         <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId">
@@ -29,10 +30,8 @@
                     <td>
                         <i style="color:green;" class="fas fa-check"></i>
                     </td>
-
-                    IsUnlocked = true;
                 }
-                else if (IsUnlocked || IsFirst)
+                else if (i == Model.CurrentApplicationUserCourse.AssignmentsCompleted)
                 {
                     <td>
                         <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId">
@@ -42,9 +41,6 @@
                     <td>
                         <i style="color:grey;" class="fas fa-unlock"></i>
                     </td>
-
-                    IsUnlocked = false;
-                    IsFirst = false;
                 }
                 else
                 {
@@ -56,6 +52,62 @@
                     </td>
                 }
             </tr>
+
+            i++;
         }
     </table>
 }
+
+
+@*@{
+        bool IsUnlocked = false;
+        bool IsFirst = true;
+    }
+
+    @foreach (var coursePart in Model.CurrentApplicationUserCourse.CourseParts)
+    {
+        <h3>@coursePart.Title</h3>
+        <table>
+            @foreach (var lesson in coursePart.Lessons)
+            {
+                <tr>
+                    @if (lesson.Assignment.IsCompleted)
+                    {
+                        <td>
+                            <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId">
+                                <p>@lesson.Title</p>
+                            </a>
+                        </td>
+                        <td>
+                            <i style="color:green;" class="fas fa-check"></i>
+                        </td>
+
+                        IsUnlocked = true;
+                    }
+                    else if (IsUnlocked || IsFirst)
+                    {
+                        <td>
+                            <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId">
+                                <p>@lesson.Title</p>
+                            </a>
+                        </td>
+                        <td>
+                            <i style="color:grey;" class="fas fa-unlock"></i>
+                        </td>
+
+                        IsUnlocked = false;
+                        IsFirst = false;
+                    }
+                    else
+                    {
+                        <td>
+                            <p>@lesson.Title</p>
+                        </td>
+                        <td>
+                            <i style="color:grey;" class="fas fa-lock"></i>
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+    }*@

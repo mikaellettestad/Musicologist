@@ -30,11 +30,13 @@ namespace Musicologist.Repositories
         }
 
         //Service-klass
-        public void UpdateApplicationUserCourse(string applicationUserId, int courseId, int XPEarned)
+        public void UpdateApplicationUserCourse(string applicationUserId, int courseId, int xpEarned, int assignmentsCompleted)
         {
             var applicationUserCourse = GetApplicationUserCourse(applicationUserId, courseId).SingleOrDefault();
 
-            applicationUserCourse.XPEarned = XPEarned;
+            applicationUserCourse.XPEarned = xpEarned;
+
+            applicationUserCourse.AssignmentsCompleted = assignmentsCompleted;
 
             _context.ApplicationUserCourses.Update(applicationUserCourse);
 

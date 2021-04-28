@@ -20,7 +20,7 @@ namespace Musicologist.Controllers
             Model = new LessonViewModel();
         }
 
-        public IActionResult Index(int lessonId, int courseId)
+        public IActionResult Index(int lessonId, int courseId, bool isCompleted)
         {
             Model = GetLesson(_userManager.GetUserId(User), lessonId);
 

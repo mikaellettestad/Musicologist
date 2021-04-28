@@ -6,7 +6,7 @@ namespace Musicologist.Repositories.Interfaces
     public interface IAssignmentRepository : IApplicationUserCourseRepository
     {
         IQueryable<Assignment> GetAssignment(int assignmentid);
-        void UpdateApplicationUserAssignment(string applicationUserId, int assignmentId, bool IsCompleted);
-        void AddApplicationUserAssignment(string applicationUserId, int assignmentId, bool IsCompleted);
+        //void UpdateApplicationUserCourse(string applicationUserId, int courseId, int xpEarned);
+        void AddApplicationUserAssignment(string applicationUserId, int assignmentId, bool isCompleted);
     }
 }

@@ -23,10 +23,9 @@ namespace Musicologist.Controllers
         }
 
         //Skapa en SetState()
-
         public IActionResult Index(int assignmentId, int courseId)
         {
-            Model.CurrentAssignment = GetAssignment(assignmentId);
+            Model.CurrentAssignment = GetApplicationUserAssignment(assignmentId);
 
             Model.CurrentCourseId = courseId;
              
@@ -36,43 +35,35 @@ namespace Musicologist.Controllers
 
             return View(Model);
         }
-
-        //Service-klass
+        
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult Index(AssignmentViewModel model)
         {
-            Model.CurrentAssignment = GetAssignment(model.CurrentAssignment.Id);
-
-            Model.CurrentCourseId = model.CurrentCourseId;
-
-            //if (!model.CurrentAnswer.IsCorrect)
-            //{
-            //    Model.AnswerIsCorrect = false;
-
-            //    Model.AnswerIsIncorrect = true;
-
-            //    return View(Model);
-            //}
-
-            if (model.CurrentAnswer.IsCorrect)
+            if (ModelState.IsValid)
             {
-                _service.UpdateResults(_userManager.GetUserId(User), model.CurrentCourseId, model.CurrentAssignment.Id, true);
+                Model.CurrentAssignment = GetApplicationUserAssignment(model.CurrentAssignment.Id);
 
-                Model.AnswerIsCorrect = true;
-                Model.AnswerIsIncorrect = false;
-            }
-            else
-            {
-                _service.UpdateResults(_userManager.GetUserId(User), model.CurrentCourseId, model.CurrentAssignment.Id, false);
+                Model.CurrentCourseId = model.CurrentCourseId;
 
-                Model.AnswerIsCorrect = false;
-                Model.AnswerIsIncorrect = true;
+                if (model.CurrentAnswer.IsCorrect)
+                {
+                    _service.AddResults(_userManager.GetUserId(User), model.CurrentCourseId, model.CurrentAssignment.Id, true);
+
+                    Model.AnswerIsCorrect = true;
+                    Model.AnswerIsIncorrect = false;
+                }
+                else
+                {
+                    Model.AnswerIsCorrect = false;
+                    Model.AnswerIsIncorrect = true;
+                }
             }
 
             return View(Model);
         }
 
-        private AssignmentViewModel.Assignment GetAssignment(int id)
+        private AssignmentViewModel.Assignment GetApplicationUserAssignment(int id)
         {
             return _repository.GetAssignment(id).Select(a => new AssignmentViewModel.Assignment
             {

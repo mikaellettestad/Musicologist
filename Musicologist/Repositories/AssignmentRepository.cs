@@ -35,9 +35,13 @@ namespace Musicologist.Repositories
         //Service-klass
         public void AddApplicationUserAssignment(string applicationUserId, int assignmentId, bool isCompleted)
         {
-            var applicationUser = _context.ApplicationUsers.SingleOrDefault(a => a.Id == applicationUserId);
+            //var applicationUser = _context.ApplicationUsers.SingleOrDefault(a => a.Id == applicationUserId);
 
-            var assignment = _context.Assignments.SingleOrDefault(a => a.Id == assignmentId);
+            var applicationUser = GetApplicationUser(applicationUserId).SingleOrDefault();
+
+            //var assignment = _context.Assignments.SingleOrDefault(a => a.Id == assignmentId);
+
+            var assignment = GetAssignment(assignmentId).SingleOrDefault();
 
             var applicationUserAssignment = new ApplicationUserAssignment()
             {

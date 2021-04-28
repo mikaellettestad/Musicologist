@@ -1,4 +1,5 @@
-﻿using Musicologist.Repositories.Interfaces;
+﻿using Musicologist.Models;
+using Musicologist.Repositories.Interfaces;
 using Musicologist.Services.Interfaces;
 using System.Linq;
 
@@ -13,38 +14,38 @@ namespace Musicologist.Services
             _repository = repository;
         }
 
-        public void UpdateResults(string applicationUserId, int courseId, int assignmentId, bool isCompleted)
+        public void AddResults(string applicationUserId, int courseId, int assignmentId, bool isCompleted)
         {
-            var assignment = _repository.GetAssignment(assignmentId).SingleOrDefault();
+            AddApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
 
-            if (isCompleted)
-            {
-                var applicationUserCourse = _repository.GetApplicationUserCourse(applicationUserId, courseId).SingleOrDefault();
-
-                applicationUserCourse.XPEarned += assignment.XPReward;
-
-                _repository.UpdateApplicationUserCourse(applicationUserId, courseId, applicationUserCourse.XPEarned);
-
-                AddOrUpdateApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
-            }
-            else
-            {
-                AddOrUpdateApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
-            }
+            UpdateApplicationUserCourse(applicationUserId, courseId, assignmentId);
+        }
+        private void AddApplicationUserAssignment(string applicationUserId, int assignmentId, bool isCompleted)
+        {
+            _repository.AddApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
         }
 
-        public void AddOrUpdateApplicationUserAssignment(string applicationUserId, int assignmentId, bool isCompleted)
+        private void UpdateApplicationUserCourse(string applicationUserId, int courseId, int assignmentId)
         {
-            var model = _repository.GetApplicationUserAssignment(applicationUserId, assignmentId).SingleOrDefault();
+            var applicationUserCourse = GetApplicationUserCourse(applicationUserId, courseId);
 
-            if (model != null)
-            {
-                _repository.UpdateApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
-            }
-            else
-            {
-                _repository.AddApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
-            }
+            int xpReward = GetXPReward(assignmentId);
+
+            int xpEarned = applicationUserCourse.XPEarned += xpReward;
+
+            int assignmentsCompleted = applicationUserCourse.AssignmentsCompleted += 1;
+
+            _repository.UpdateApplicationUserCourse(applicationUserId, courseId, xpEarned, assignmentsCompleted);
+        }
+
+        private ApplicationUserCourse GetApplicationUserCourse(string applicationUserId, int courseId)
+        {
+            return _repository.GetApplicationUserCourse(applicationUserId, courseId).SingleOrDefault();
+        }
+
+        private int GetXPReward(int assignmentId)
+        {
+            return _repository.GetAssignment(assignmentId).SingleOrDefault().XPReward;
         }
     }
 }

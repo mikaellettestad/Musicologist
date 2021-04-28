@@ -100,6 +100,7 @@ namespace Musicologist.Controllers
                     XPReward = c.Course.XP,
                     ImageUrl = c.Course.ImageUrl,
                     IsCompleted = false,
+                    AssignmentsCompleted = c.AssignmentsCompleted,
                     CourseParts = c.Course.CourseParts.Select(c => new ApplicationUserCourseViewModel.CoursePart
                     {
                         Id = c.Id,
@@ -118,24 +119,6 @@ namespace Musicologist.Controllers
                         }).ToList()
                     }).ToList()
             }).SingleOrDefault();
-
-            foreach (var coursePart in applicationUserCourse.CourseParts)
-            {
-                foreach (var lesson in coursePart.Lessons)
-                {
-                    var assignment = _repository.GetApplicationUserAssignment(applicationUserId, lesson.Assignment.Id).SingleOrDefault();
-                    
-                    if (assignment != null)
-                    {
-                        if (assignment.IsCompleted)
-                        {
-                            lesson.Assignment.IsCompleted = true;
-                        }
-                    }
-                }
-            }
-
-            // Istället kanske skapa en räknare istället. Ex 3 stycken är avklarade. Borde vara mer effektivt
 
             return applicationUserCourse;
         }
