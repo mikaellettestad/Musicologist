@@ -1,13 +1,45 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@model Musicologist.ViewModels.CourseViewModel;
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-left">
+    <h1 class="display-4">Musicologist</h1>
 </div>
 
 <h1>@ViewBag.Message</h1>
+
+@{ string route = ""; }
+
+<div class="jumbotron jumbotron-fluid">
+</div>
+
+<div class="container">
+
+    <h3 class="text-left">Available courses:</h3>
+    <div class="row">
+        @foreach (var course in Model.Courses)
+        {
+            if (SignInManager.IsSignedIn(User))
+            {
+                route = "/ApplicationUserCourse/Details?courseId=" + course.Id;
+            }
+            else
+            {
+                route = "/Course/Details?courseId=" + course.Id;
+            }
+            <a href="@route">
+                <div class="course zoom col-12 col-sm-4 col-md-4 col-lg-4 box col-xl-4 box">
+                    <img class="image-course" src="@course.ImageUrl">
+                    <div class="course-title">@course.Title</div>
+                </div>
+            </a>
+        }
+    </div>
+</div>
 
 <a href="/ApplicationUser">Profile</a>
 <a href="/Course">Courses</a>

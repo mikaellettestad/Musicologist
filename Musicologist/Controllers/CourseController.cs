@@ -11,7 +11,7 @@ namespace Musicologist.Controllers
         private readonly ICourseRepository _repository;
         public CourseViewModel Model;
 
-        public CourseController(IApplicationUserRepository applicationUserRepository, ICourseRepository repository)
+        public CourseController(ICourseRepository repository)
         {
             _repository = repository;
 

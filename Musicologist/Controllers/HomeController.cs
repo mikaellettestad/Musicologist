@@ -3,23 +3,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
+using Musicologist.ViewModels;
 using System.Diagnostics;
 
 namespace Musicologist.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : CourseController
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        //private readonly ICourseRepository _repository;
+        public HomeController(ILogger<HomeController> logger, ICourseRepository repository) : base(repository)
         {
             _logger = logger;
+            //_repository = repository;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
 
         public IActionResult Privacy()
         {
