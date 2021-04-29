@@ -21,7 +21,6 @@ namespace Musicologist.Data
         public DbSet<LessonText> LessonTexts { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Answer> Answers { get; set; }
-        public DbSet<UserStatistics> UserStatistics { get; set; }
         public DbSet<ApplicationUserCourse> ApplicationUserCourses { get; set; }
         public DbSet<ApplicationUserAssignment> ApplicationUserAssignments { get; set; }
     }

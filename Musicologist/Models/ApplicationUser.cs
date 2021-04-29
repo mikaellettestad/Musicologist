@@ -5,6 +5,6 @@ namespace Musicologist.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public UserStatistics UserStatistics { get; set; }
+        public int XP { get; set; }
     }
 }

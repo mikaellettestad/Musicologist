@@ -38,7 +38,7 @@ namespace Musicologist.Controllers
                 .Select(x => new ApplicationUserViewModel
                 {
                     UserName = x.UserName,
-                    XPEarned = x.UserStatistics.XPGainedTotal
+                    XP = x.XP
                 }).SingleOrDefault();
 
             applicationUser.ApplicationUserCourses = _repository.GetApplicationUserCourses(applicationUserId).Select(a => new ApplicationUserViewModel.ApplicationUserCourse

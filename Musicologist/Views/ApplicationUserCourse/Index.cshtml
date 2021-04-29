@@ -6,11 +6,13 @@
 
 <h6>XP earned: @Model.CurrentApplicationUserCourse.XPEarned out of @Model.CurrentApplicationUserCourse.XPReward</h6>
 
-
 @{
-    //bool IsUnlocked = false;
-    //bool IsFirst = true;
     int i = 0;
+}
+
+@if(Model.CurrentApplicationUserCourse.NumberOfLessons == Model.CurrentApplicationUserCourse.AssignmentsCompleted)
+{
+    <h1 style="color: green;">Congratulations! You've completed this course :)</h1>
 }
 
 @foreach (var coursePart in Model.CurrentApplicationUserCourse.CourseParts)
@@ -57,57 +59,3 @@
         }
     </table>
 }
-
-
-@*@{
-        bool IsUnlocked = false;
-        bool IsFirst = true;
-    }
-
-    @foreach (var coursePart in Model.CurrentApplicationUserCourse.CourseParts)
-    {
-        <h3>@coursePart.Title</h3>
-        <table>
-            @foreach (var lesson in coursePart.Lessons)
-            {
-                <tr>
-                    @if (lesson.Assignment.IsCompleted)
-                    {
-                        <td>
-                            <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId">
-                                <p>@lesson.Title</p>
-                            </a>
-                        </td>
-                        <td>
-                            <i style="color:green;" class="fas fa-check"></i>
-                        </td>
-
-                        IsUnlocked = true;
-                    }
-                    else if (IsUnlocked || IsFirst)
-                    {
-                        <td>
-                            <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId">
-                                <p>@lesson.Title</p>
-                            </a>
-                        </td>
-                        <td>
-                            <i style="color:grey;" class="fas fa-unlock"></i>
-                        </td>
-
-                        IsUnlocked = false;
-                        IsFirst = false;
-                    }
-                    else
-                    {
-                        <td>
-                            <p>@lesson.Title</p>
-                        </td>
-                        <td>
-                            <i style="color:grey;" class="fas fa-lock"></i>
-                        </td>
-                    }
-                </tr>
-            }
-        </table>
-    }*@

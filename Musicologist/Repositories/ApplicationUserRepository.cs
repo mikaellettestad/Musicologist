@@ -18,8 +18,7 @@ namespace Musicologist.Repositories
 
         public IQueryable<ApplicationUser> GetApplicationUser(string applicationUserId)
         {
-            return _context.ApplicationUsers.Where(x => x.Id == applicationUserId)
-                .Include(x => x.UserStatistics);
+            return _context.ApplicationUsers.Where(x => x.Id == applicationUserId);
         }
         public IQueryable<ApplicationUserCourse> GetApplicationUserCourses(string Id)
         {
@@ -33,9 +32,15 @@ namespace Musicologist.Repositories
                 .Where(a => a.ApplicationUser.Id == applicationUserId && a.Assignment.Id == assignmentId);
         }
 
-        public Update UpdateUser(string Id)
+        public void UpdateApplicationUser(string applicationUserId, int xp)
         {
-            return Update.Succeeded;
+            var applicationUser = GetApplicationUser(applicationUserId).SingleOrDefault();
+
+            applicationUser.XP = xp;
+
+            _context.ApplicationUsers.Update(applicationUser);
+
+            _context.SaveChanges();
         }
     }
 }

@@ -7,5 +7,6 @@ namespace Musicologist.Repositories.Interfaces
     {
         IQueryable<ApplicationUser> GetApplicationUser(string applicationUserId);
         IQueryable<ApplicationUserCourse> GetApplicationUserCourses(string Id);
+        void UpdateApplicationUser(string applicationUserId, int xp);
     }
 }

@@ -5,7 +5,7 @@ namespace Musicologist.ViewModels
     public class ApplicationUserViewModel
     {
         public string UserName { get; set; }
-        public int XPEarned { get; set; }
+        public int XP { get; set; }
 
         public List<ApplicationUserCourse> ApplicationUserCourses { get; set; }
         public class ApplicationUserCourse

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
+using Musicologist.Services;
+using Musicologist.Services.Interfaces;
 using Musicologist.ViewModels;
 using System.Linq;
 
@@ -99,7 +101,7 @@ namespace Musicologist.Controllers
                     Description = c.Course.Description,
                     XPReward = c.Course.XP,
                     ImageUrl = c.Course.ImageUrl,
-                    IsCompleted = false,
+                    IsCompleted = c.IsCompleted,
                     AssignmentsCompleted = c.AssignmentsCompleted,
                     CourseParts = c.Course.CourseParts.Select(c => new ApplicationUserCourseViewModel.CoursePart
                     {
@@ -111,14 +113,13 @@ namespace Musicologist.Controllers
                             Id = l.Id,
                             Title = l.Title,
                             Description = l.Description,
-                            Assignment = new ApplicationUserCourseViewModel.Assignment
-                            {
-                                Id = l.Assignment.Id,
-                                IsCompleted = false
-                            }
                         }).ToList()
                     }).ToList()
             }).SingleOrDefault();
+
+            IApplicationUserCourseService _service = new ApplicationUserCourseService();
+
+            applicationUserCourse.NumberOfLessons = _service.GetNumberOfLessons(applicationUserCourse);
 
             return applicationUserCourse;
         }

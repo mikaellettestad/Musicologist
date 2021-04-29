@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
+using Musicologist.Services;
+using Musicologist.Services.Interfaces;
 using Musicologist.ViewModels;
 using System.Linq;
 
@@ -29,7 +31,6 @@ namespace Musicologist.Controllers
             return View(Model);
         }
 
-        //Service-klass
         private LessonViewModel GetLesson(string applicationUserId, int lessonId)
         {
             var model = _repository.GetLesson(lessonId).Select(lesson => new LessonViewModel

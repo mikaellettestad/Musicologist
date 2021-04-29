@@ -19,6 +19,8 @@ namespace Musicologist.Services
             AddApplicationUserAssignment(applicationUserId, assignmentId, isCompleted);
 
             UpdateApplicationUserCourse(applicationUserId, courseId, assignmentId);
+
+            UpdateApplicationUser(applicationUserId, assignmentId);
         }
         private void AddApplicationUserAssignment(string applicationUserId, int assignmentId, bool isCompleted)
         {
@@ -36,6 +38,22 @@ namespace Musicologist.Services
             int assignmentsCompleted = applicationUserCourse.AssignmentsCompleted += 1;
 
             _repository.UpdateApplicationUserCourse(applicationUserId, courseId, xpEarned, assignmentsCompleted);
+        }
+
+        private void UpdateApplicationUser(string applicationUserId, int assignmentId)
+        {
+            var applicationUser = GetApplicationUser(applicationUserId);
+
+            int xpReward = GetXPReward(assignmentId);
+
+            int xpEarned = applicationUser.XP += xpReward;
+
+            _repository.UpdateApplicationUser(applicationUserId, xpEarned);
+        }
+
+        private ApplicationUser GetApplicationUser(string applicationUserId)
+        {
+            return _repository.GetApplicationUser(applicationUserId).SingleOrDefault();
         }
 
         private ApplicationUserCourse GetApplicationUserCourse(string applicationUserId, int courseId)
