@@ -7,39 +7,30 @@
 }
 
 <div class="text-left">
-    <h1 class="display-4">Musicologist</h1>
+    <h1 class="display-4">M U S I C O L O G I S T</h1>
 </div>
 
 <h1>@ViewBag.Message</h1>
 
 @{ string route = ""; }
 
-<div class="jumbotron jumbotron-fluid">
-</div>
+<div class=" jumbotron jumbotron-fluid"></div>
 
-<div class="container">
-
-    <h3 class="text-left">Available courses:</h3>
-    <div class="row">
-        @foreach (var course in Model.Courses)
+<h3 class="text-left">Our courses:</h3>
+<div class="row">
+    @foreach (var course in Model.Courses)
+    {
+        if (SignInManager.IsSignedIn(User))
         {
-            if (SignInManager.IsSignedIn(User))
-            {
-                route = "/ApplicationUserCourse/Details?courseId=" + course.Id;
-            }
-            else
-            {
-                route = "/Course/Details?courseId=" + course.Id;
-            }
-            <a href="@route">
-                <div class="course zoom col-12 col-sm-4 col-md-4 col-lg-4 box col-xl-4 box">
-                    <img class="image-course" src="@course.ImageUrl">
-                    <div class="course-title">@course.Title</div>
-                </div>
-            </a>
+            route = "/ApplicationUserCourse/Details?courseId=" + course.Id;
         }
-    </div>
+        else
+        {
+            route = "/Course/Details?courseId=" + course.Id;
+        }
+        <a class="course zoom col-lg-4" href="@route">
+                <img class="course-image" src="@course.ImageUrl">
+                <div class="course-title">@course.Title</div>
+        </a>
+    }
 </div>
-
-<a href="/ApplicationUser">Profile</a>
-<a href="/Course">Courses</a>

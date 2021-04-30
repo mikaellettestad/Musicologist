@@ -1,48 +1,43 @@
 ﻿@model Musicologist.ViewModels.ApplicationUserViewModel
 
-<div class="container">
+<div class="row margin-bottom-25">
+    <div class="col-sm-4 col-md-3 col-lg-2">
+        @* ================================================================================================ *@
+        @* Hårdkodad profilbild *@
+        <img src="/img/profile-picture-avatar-3.jpg" id="profile-image" class="img">
+        @* ================================================================================================ *@
+    </div>
+    <div class="col-sm-4 col-md-3 col-lg-10">
+        <div class="container">
+            <div class="row">
 
-    <div class="row margin-bottom-25">
-        <div class="col-sm-4 col-md-3 col-lg-2">
-            @* ================================================================================================ *@
-            @* Hårdkodad profilbild *@
-            <img src="/img/profile-picture-avatar-3.jpg" id="profile-image" class="img">
-            @* ================================================================================================ *@
-        </div>
-        <div class="col-sm-4 col-md-3 col-lg-10">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-lg-3">
-                        <h3>@Model.UserName</h3>
-                    </div>
-
-                    <div class="col-lg-1">
-                        <a asp-area="Identity" asp-page="/Account/Manage/Index" class="btn btn-info">Edit</a>
-                    </div>
+                <div class="col-lg-3">
+                    <h3>@Model.UserName</h3>
                 </div>
-                <div class="row">
 
-                    <div class="col-lg-3">
-                        <h6>Total XP: @Model.XP</h6>
-                    </div>
+                <div class="col-lg-1">
+                    <a asp-area="Identity" asp-page="/Account/Manage/Index" class="btn btn-info">Edit</a>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-lg-3">
+                    <h6>Total XP: @Model.XP</h6>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <h3>My courses</h3>
+<h3>My courses</h3>
 
-    <div class="row">
+<div class="row">
 
-        @foreach (var course in Model.ApplicationUserCourses)
-        {
-            <a href="/ApplicationUserCourse/Index?courseId=@course.Id">
-                <div class="course zoom col-12 col-sm-4 col-md-4 col-lg-4 box col-xl-4 box">
-                    <img class="image-course" src="/img/music-theory-basics.jpg">
-                    <div class="course-title">@course.Title IsCompleted: @course.IsCompleted</div>
-                </div>
-            </a>
-        }
-    </div>
+    @foreach (var course in Model.ApplicationUserCourses)
+    {
+        <a class="course zoom col-lg-4" href="/ApplicationUserCourse/Index?courseId=@course.Id">
+            <img class="course-image" src="/img/music-theory-basics.jpg">
+            <div class="course-title">@course.Title IsCompleted: @course.IsCompleted</div>
+        </a>
+    }
 </div>

@@ -1,5 +1,8 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+﻿/*header {
+    position: fixed;
+    top: 0;
+    width: 100%
+}*/
 
 .zoom {
     transition: transform .1s;
@@ -24,26 +27,32 @@ for details on configuring this project to bundle and minify static web assets. 
     color:whitesmoke;
 }
 
-.image-course {
+/*body{background-color:cadetblue;}*/
+
+.course-image {
     width: 100%;
 }
 
 .course {
-    position: relative;
+    /*position: relative;*/
     padding: 0;
     overflow: hidden;
+    margin-bottom: 50px;
+    height:200px;
+    /*width:200px;*/
+    margin-left:10px;
 }
 
 i {
     color: white;
 }
 
-.browse {
+/*.browse {
     padding: 5px;
     font-size: larger;
     height: 50px;
     width: 225px;
-}
+}*/
 
 .btn-success {
     padding: 12.5px;
@@ -51,27 +60,16 @@ i {
     padding-right: 182.5px;
 }
 
-/* input {
-  padding:5px;
-  font-size:larger;
-  height: 50px;
-  width: 400px;
-} */
-
 .margin-bottom-25 {
     margin-bottom: 25px;
 }
 
-.margin-top-7 {
-    margin-top: 7px;
+.margin-bottom-50 {
+    margin-bottom: 50px;
 }
 
-.box {
-    height: 20vh;
-    /* max-width: 340px; */
-    /* max-width: 26vw; */
-    background-color: lightgrey;
-    /* margin:5px; */
+.margin-top-7 {
+    margin-top: 7px;
 }
 
 #profile-image {
@@ -79,13 +77,6 @@ i {
     width: 175px;
     height: auto;
 }
-
-.container {
-    margin: auto;
-    /* margin-left:10%;
-  margin-right:10%; */
-}
-
 
 a.navbar-brand {
     white-space: normal;
@@ -110,65 +101,10 @@ a {
     border-color: #1861ac;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
+
+/*html {
     font-size: 14px;
-}
-
-@media (max-width: 576px) {
-    html {
-        font-size: 16px;
-    }
-
-    .box {
-        max-width: 90vw;
-        margin: 5vw;
-    }
-}
-
-@media (min-width: 576px) and (max-width: 768px) {
-    html {
-        font-size: 16px;
-    }
-
-    .box {
-        max-width: 22vw;
-        margin: 1vw;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1440px) {
-    html {
-        font-size: 16px;
-    }
-
-    .box {
-        max-width: 22vw;
-        margin: 1vw;
-    }
-}
-
-@media (min-width: 1366px) and (max-width: 1440px) {
-    html {
-        font-size: 16px;
-    }
-
-    .box {
-        max-width: 25vw;
-    }
-}
-
-@media (min-width: 1440px) {
-    html {
-        font-size: 16px;
-    }
-
-    .box {
-        max-width: 25vw;
-        margin: 0.5vw;
-    }
-}
+}*/
 
 .border-top {
     border-top: 1px solid #e5e5e5;
@@ -182,28 +118,16 @@ html {
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
-button.accept-policy {
-    font-size: 1rem;
-    line-height: inherit;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
 html {
     position: relative;
     min-height: 100%;
 }
 
-body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
-    /* margin:10%; */
-}
-
-.footer {
+footer {
     position: absolute;
-    bottom: 0;
+    margin-top: 100px;
+    /*position: absolute;*/
+
+    bottom:0;
     width: 100%;
-    white-space: nowrap;
-    line-height: 60px; /* Vertically center the text there */
 }

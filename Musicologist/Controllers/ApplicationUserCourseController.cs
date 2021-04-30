@@ -106,7 +106,7 @@ namespace Musicologist.Controllers
                     CourseParts = c.Course.CourseParts.Select(c => new ApplicationUserCourseViewModel.CoursePart
                     {
                         Id = c.Id,
-                        Title = c.Description,
+                        Title = c.Title,
                         Description = c.Description,
                         Lessons = c.Lessons.Select(l => new ApplicationUserCourseViewModel.Lesson
                         {

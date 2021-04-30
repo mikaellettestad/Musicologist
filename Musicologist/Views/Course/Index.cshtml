@@ -6,24 +6,20 @@
 
 @{ string route = ""; }
 
-<div class="container">
-    <div class="row">
-        @foreach (var course in Model.Courses)
+<div class="row">
+    @foreach (var course in Model.Courses)
+    {
+        if (SignInManager.IsSignedIn(User))
         {
-            if (SignInManager.IsSignedIn(User))
-            {
-                route = "/ApplicationUserCourse/Details?courseId=" + course.Id;
-            }
-            else
-            {
-                route = "/Course/Details?courseId=" + course.Id;
-            }
-            <a href="@route">
-                <div class="course zoom col-12 col-sm-4 col-md-4 col-lg-4 box col-xl-4 box">
-                    <img class="image-course" src="@course.ImageUrl">
-                    <div class="course-title">@course.Title</div>
-                </div>
-            </a>
+            route = "/ApplicationUserCourse/Details?courseId=" + course.Id;
         }
-    </div>
+        else
+        {
+            route = "/Course/Details?courseId=" + course.Id;
+        }
+        <a class="course zoom col-lg-4" href="@route">
+            <img class="course-image" src="@course.ImageUrl">
+            <div class="course-title">@course.Title</div>
+        </a>
+    }
 </div>

@@ -1,13 +1,7 @@
 ﻿@model Musicologist.ViewModels.CourseViewModel
 
-<div class="container">
+<h1>@Model.CurrentCourse.Title</h1>
 
-    <h1>@Model.CurrentCourse.Title</h1>
+<h3>@Model.CurrentCourse.Description</h3>
 
-    <h3>@Model.CurrentCourse.Description</h3>
-
-    <h3>Total XP: @Model.CurrentCourse.XPReward</h3>
-
-    @*<a href="/ApplicationUserCourse/AddCourse?courseId=@Model.CurrentCourse.Id" class="btn btn-success">Add to my courses</a>*@
-
-</div>
+<h3>Total XP: @Model.CurrentCourse.XPReward</h3>

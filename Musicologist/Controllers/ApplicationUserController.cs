@@ -48,6 +48,12 @@ namespace Musicologist.Controllers
                 IsCompleted = a.IsCompleted
             }).ToList();
 
+            //foreach (var applicationUserCourse in applicationUser.ApplicationUserCourses)
+            //{
+            //    applicationUserCourse.ImageUrl = _repository.GetC
+
+            //}
+
             return applicationUser;
         }
     }
