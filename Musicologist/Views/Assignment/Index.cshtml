@@ -20,12 +20,52 @@
     <br />
 }
 
+<audio id="incorrect-answer">
+    <source src="~/sounds/incorrect-answer.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="correct-answer">
+    <source src="~/sounds/correct-answer.mp3" type="audio/mpeg">
+</audio>
+
 @if (Model.AnswerIsIncorrect)
 {
     <h1 style="color: red;">Incorrect answer</h1>
+
+
+
+    <script>
+
+        var x = document.getElementById("incorrect-answer");
+
+        function playAudio() {
+            x.play();
+        }
+
+        function pauseAudio() {
+            x.pause();
+        }
+
+        playAudio();
+    </script>
 }
 
 @if (Model.AnswerIsCorrect)
 {
     <h1 style="color: green;">Correct answer</h1>
+
+    <script>
+
+        var x = document.getElementById("correct-answer");
+
+        function playAudio() {
+            x.play();
+        }
+
+        function pauseAudio() {
+            x.pause();
+        }
+
+        playAudio();
+    </script>
 }

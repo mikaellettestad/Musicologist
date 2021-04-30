@@ -1,8 +1,24 @@
-﻿/*header {
-    position: fixed;
-    top: 0;
-    width: 100%
-}*/
+﻿
+.login-form-container {
+    margin-top: 50px;
+    width: 50vw;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    border-radius:25px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.25);
+    padding:10px;
+}
+
+.form-control {
+    width:25vw;
+}
+
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-bottom: 10px;
+}
 
 .zoom {
     transition: transform .1s;
@@ -28,8 +44,7 @@
 }
 
 /*body{background-color:cadetblue;}*/
-
-.course-image {
+    .course-image {
     width: 100%;
 }
 
@@ -37,10 +52,11 @@
     /*position: relative;*/
     padding: 0;
     overflow: hidden;
-    margin-bottom: 50px;
+    /*margin-bottom: 50px;*/
     height:200px;
+    max-width:25vw;
     /*width:200px;*/
-    margin-left:10px;
+    margin-right:10px;
 }
 
 i {
