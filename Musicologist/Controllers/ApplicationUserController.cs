@@ -45,14 +45,10 @@ namespace Musicologist.Controllers
             {
                 Id = a.Course.Id,
                 Title = a.Course.Title,
-                IsCompleted = a.IsCompleted
+                IsCompleted = a.IsCompleted,
+                ImageUrl = a.Course.ImageUrl
+                
             }).ToList();
-
-            //foreach (var applicationUserCourse in applicationUser.ApplicationUserCourses)
-            //{
-            //    applicationUserCourse.ImageUrl = _repository.GetC
-
-            //}
 
             return applicationUser;
         }

@@ -36,7 +36,7 @@
     @foreach (var course in Model.ApplicationUserCourses)
     {
         <a class="course zoom col-lg-4" href="/ApplicationUserCourse/Index?courseId=@course.Id">
-            <img class="course-image" src="/img/music-theory-basics.jpg">
+            <img class="course-image" src=@course.ImageUrl>
             <div class="course-title">@course.Title IsCompleted: @course.IsCompleted</div>
         </a>
     }

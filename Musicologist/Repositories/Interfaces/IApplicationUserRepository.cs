@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Musicologist.Repositories.Interfaces
 {
-    public interface IApplicationUserRepository
+    public interface IApplicationUserRepository : ICourseRepository
     {
         IQueryable<ApplicationUser> GetApplicationUser(string applicationUserId);
         IQueryable<ApplicationUserCourse> GetApplicationUserCourses(string Id);

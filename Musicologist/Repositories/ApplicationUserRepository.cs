@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace Musicologist.Repositories
 {
-    public class ApplicationUserRepository : IApplicationUserRepository
+    public class ApplicationUserRepository : CourseRepository, IApplicationUserRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public ApplicationUserRepository(ApplicationDbContext context)
+        public ApplicationUserRepository(ApplicationDbContext context) : base(context)
         {
             _context = context;
         }
