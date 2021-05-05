@@ -36,9 +36,19 @@
                 else if (i == Model.CurrentApplicationUserCourse.AssignmentsCompleted)
                 {
                     <td>
-                        <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId">
-                            <p>@lesson.Title</p>
-                        </a>
+                        @if ((i + 1) == Model.CurrentApplicationUserCourse.NumberOfLessons)
+                        {
+
+                            <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId&i=@i&lastLesson=true&numberOfLessons=@Model.CurrentApplicationUserCourse.NumberOfLessons">
+                                <p>@lesson.Title</p>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId&i=@i&lastLesson=false&numberOfLessons=@Model.CurrentApplicationUserCourse.NumberOfLessons">
+                                <p>@lesson.Title</p>
+                            </a>
+                        }
                     </td>
                     <td>
                         <i style="color:grey;" class="fas fa-unlock"></i>

@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Musicologist.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Musicologist.Data
 {

@@ -2,12 +2,11 @@
 using Musicologist.Data;
 using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
-using Musicologist.Types;
 using System.Linq;
 
 namespace Musicologist.Repositories
 {
-    public class ApplicationUserRepository : CourseRepository, IApplicationUserRepository
+    public class ApplicationUserRepository : GenericRepository, IApplicationUserRepository
     {
         private readonly ApplicationDbContext _context;
 

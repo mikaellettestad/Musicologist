@@ -58,7 +58,7 @@ namespace Musicologist.Services
 
         private ApplicationUserCourse GetApplicationUserCourse(string applicationUserId, int courseId)
         {
-            return _repository.GetApplicationUserCourse(applicationUserId, courseId).SingleOrDefault();
+            return _repository.GetCourseDetails(applicationUserId, courseId).SingleOrDefault();
         }
 
         private int GetXPReward(int assignmentId)

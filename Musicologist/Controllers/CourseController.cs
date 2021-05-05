@@ -8,10 +8,10 @@ namespace Musicologist.Controllers
 {
     public class CourseController : Controller
     {
-        private readonly ICourseRepository _repository;
+        private readonly IGenericRepository _repository;
         public CourseViewModel Model;
 
-        public CourseController(ICourseRepository repository)
+        public CourseController(IGenericRepository repository)
         {
             _repository = repository;
 
@@ -43,7 +43,7 @@ namespace Musicologist.Controllers
 
         private CourseViewModel GetDetails(int courseId)
         {
-            return _repository.GetCourse(courseId).Select(course => new CourseViewModel
+            return _repository.GetCourseOverview(courseId).Select(course => new CourseViewModel
             {
                 CurrentCourse = new CourseViewModel.Course
                 {

@@ -2,19 +2,15 @@
 using Musicologist.Data;
 using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Musicologist.Repositories
 {
-    public class CourseRepository : ICourseRepository
+    public class GenericRepository : IGenericRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public CourseRepository(ApplicationDbContext context)
+        public GenericRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -24,9 +20,16 @@ namespace Musicologist.Repositories
             return _context.Courses;
         }
 
-        public IQueryable<Course> GetCourse(int Id)
+        public IQueryable<Course> GetCourseOverview(int Id)
         {
             return _context.Courses.Where(c => c.Id == Id);
+        }
+
+        public IQueryable<Course> GetCourse(int courseId)
+        {
+            return _context.Courses.Where(course => course.Id == courseId)
+                .Include(course => course.CourseParts)
+                .ThenInclude(course => course.Lessons);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Musicologist.Repositories
                 .ThenInclude(c => c.Assignment);
         }
 
-        public IQueryable<ApplicationUserCourse> GetApplicationUserCourse(string applicationUserId, int courseId)
+        public IQueryable<ApplicationUserCourse> GetCourseDetails(string applicationUserId, int courseId)
         {
             return _context.ApplicationUserCourses.Where(c => c.ApplicationUser.Id == applicationUserId && c.Course.Id == courseId);
         }
@@ -32,7 +32,7 @@ namespace Musicologist.Repositories
         //Service-klass
         public void UpdateApplicationUserCourse(string applicationUserId, int courseId, int xpEarned, int assignmentsCompleted)
         {
-            var applicationUserCourse = GetApplicationUserCourse(applicationUserId, courseId).SingleOrDefault();
+            var applicationUserCourse = GetCourseDetails(applicationUserId, courseId).SingleOrDefault();
 
             applicationUserCourse.XPEarned = xpEarned;
 
@@ -43,7 +43,7 @@ namespace Musicologist.Repositories
             _context.SaveChanges();
         }
 
-        public IQueryable<ApplicationUserAssignment> GetApplicationUserAssignment(string applicationUserId, int assignmentId)
+        public IQueryable<ApplicationUserAssignment> GetAssignment(string applicationUserId, int assignmentId)
         {
             return _context.ApplicationUserAssignments.Where(a => a.ApplicationUser.Id == applicationUserId && a.Assignment.Id == assignmentId);
         }
@@ -65,19 +65,9 @@ namespace Musicologist.Repositories
             _context.SaveChanges();
         }
 
-        public IQueryable<Course> GetCourseDetails(int courseId)
-        {
-            return _context.Courses.Where(c => c.Id == courseId);
-        }
-
-        public IQueryable<Course> GetCourses()
-        {
-            return _context.Courses;
-        }
-
-        public IQueryable<Course> GetCourse(int Id)
-        {
-            return _context.Courses.Where(c => c.Id == Id);
-        }
+        //public IQueryable<Course> GetCourseDetails(int courseId)
+        //{
+        //    return _context.Courses.Where(c => c.Id == courseId);
+        //}
     }
 }

@@ -23,7 +23,7 @@ namespace Musicologist.Controllers
         }
 
         //Skapa en SetState()
-        public IActionResult Index(int assignmentId, int courseId)
+        public IActionResult Index(int assignmentId, int courseId, int nextLessonId, int nextLessonIndex, bool isLast, int numberOfLessons)
         {
             Model.CurrentAssignment = GetApplicationUserAssignment(assignmentId);
 
@@ -33,9 +33,22 @@ namespace Musicologist.Controllers
 
             Model.AnswerIsIncorrect = false;
 
+            Model.NextLessonId = nextLessonId;
+
+            Model.NextLessonIndex = nextLessonIndex;
+
+            Model.NumberOfLessons = numberOfLessons;
+
+            Model.IsLast = isLast;
+
+            if(numberOfLessons == nextLessonIndex)
+            {
+                Model.IsLast = true;
+            }
+
             return View(Model);
         }
-        
+
         [ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult Index(AssignmentViewModel model)
@@ -46,18 +59,31 @@ namespace Musicologist.Controllers
 
                 Model.CurrentCourseId = model.CurrentCourseId;
 
+                Model.NextLessonId = model.NextLessonId;
+
+                Model.NextLessonIndex = model.NextLessonIndex;
+
+                Model.NumberOfLessons = model.NumberOfLessons;
+
                 if (model.CurrentAnswer.IsCorrect)
                 {
                     _service.AddResults(_userManager.GetUserId(User), model.CurrentCourseId, model.CurrentAssignment.Id, true);
 
                     Model.AnswerIsCorrect = true;
                     Model.AnswerIsIncorrect = false;
+
+
                 }
                 else
                 {
                     Model.AnswerIsCorrect = false;
                     Model.AnswerIsIncorrect = true;
                 }
+            }
+
+            if (model.IsLast && model.CurrentAnswer.IsCorrect)
+            {
+                return Redirect("/ApplicationUserCourse/Index?courseId=" + model.CurrentCourseId);
             }
 
             return View(Model);

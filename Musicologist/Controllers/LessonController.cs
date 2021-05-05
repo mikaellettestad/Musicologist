@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
-using Musicologist.Services;
 using Musicologist.Services.Interfaces;
 using Musicologist.ViewModels;
 using System.Linq;
@@ -13,21 +12,36 @@ namespace Musicologist.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILessonRepository _repository;
+        private readonly ILessonService _service;
 
         public LessonViewModel Model { get; set; }
-        public LessonController(UserManager<ApplicationUser> userManager, ILessonRepository repository)
+        public LessonController(UserManager<ApplicationUser> userManager, ILessonRepository repository, ILessonService service)
         {
             _userManager = userManager;
             _repository = repository;
-            Model = new LessonViewModel();
+            _service = service;
         }
 
-        public IActionResult Index(int lessonId, int courseId, bool isCompleted)
+        public IActionResult Index(int lessonId, int courseId, int i, bool lastLesson, int numberOfLessons)
         {
             Model = GetLesson(_userManager.GetUserId(User), lessonId);
 
+            Model.NumberOfLessons = numberOfLessons;
+
             Model.CourseId = courseId;
 
+            if (lastLesson)
+            {
+                Model.IsLastLesson = true;
+
+                return View(Model);
+            }
+
+            Model.NextLessonIndex = i + 1;
+
+            //Blir fel när lektion inte finns
+            Model.NextLessonId = _service.GetNextLessonId(courseId, i);
+                
             return View(Model);
         }
 
@@ -51,7 +65,7 @@ namespace Musicologist.Controllers
                 AssignmentId = lesson.Assignment.Id
             }).SingleOrDefault();
 
-            var applicationUserAssignment = _repository.GetApplicationUserAssignment(applicationUserId, model.AssignmentId).SingleOrDefault();
+            var applicationUserAssignment = _repository.GetAssignment(applicationUserId, model.AssignmentId).SingleOrDefault();
 
             if (applicationUserAssignment != null)
                 model.IsCompleted = true;
@@ -59,6 +73,12 @@ namespace Musicologist.Controllers
                 model.IsCompleted = false;
 
             return model;
+        }
+
+        private int GetNextLessonId()
+        {
+
+            return 1;
         }
     }
 }

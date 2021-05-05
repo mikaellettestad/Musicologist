@@ -9,6 +9,10 @@ namespace Musicologist.ViewModels
         public int CurrentCourseId { get; set; }
         public bool AnswerIsIncorrect { get; set; }
         public bool AnswerIsCorrect { get; set; }
+        public bool IsLast { get; set; }
+        public int NextLessonId { get; set; }
+        public int NextLessonIndex { get; set; }
+        public int NumberOfLessons { get; set; }
         public class Assignment
         {
             public int Id { get; set; }

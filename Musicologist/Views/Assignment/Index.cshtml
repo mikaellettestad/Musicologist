@@ -6,9 +6,15 @@
 
 <h3>@Model.CurrentAssignment.Question</h3>
 
-@foreach (var answer in Model.CurrentAssignment.Answers)
-{
+<div id="assignmentForm">
+
+    @foreach (var answer in Model.CurrentAssignment.Answers)
+    {
     <form asp-controller="Assignment" asp-action="Index" method="post">
+        <input type="hidden" asp-for="@Model.NumberOfLessons" value="@Model.NumberOfLessons" />
+        <input type="hidden" asp-for="@Model.IsLast" value="@Model.IsLast" />
+        <input type="hidden" asp-for="@Model.NextLessonIndex" value="@Model.NextLessonIndex" />
+        <input type="hidden" asp-for="@Model.NextLessonId" value="@Model.NextLessonId" />
         <input type="hidden" asp-for="@Model.CurrentCourseId" value="@Model.CurrentCourseId" />
         <input type="hidden" asp-for="@Model.CurrentAssignment.Id" value="@Model.CurrentAssignment.Id" />
         <input type="hidden" asp-for="@Model.CurrentAssignment.Id" value="@Model.CurrentAssignment.Id" />
@@ -16,9 +22,10 @@
         <button type="submit" class="btn btn-success">@answer.Text</button>
     </form>
 
-    <br />
-    <br />
-}
+        <br />
+        <br />
+    }
+</div>
 
 <audio id="incorrect-answer">
     <source src="~/sounds/incorrect-answer.mp3" type="audio/mpeg">
@@ -31,8 +38,6 @@
 @if (Model.AnswerIsIncorrect)
 {
     <h1 style="color: red;">Incorrect answer</h1>
-
-
 
     <script>
 
@@ -54,7 +59,15 @@
 {
     <h1 style="color: green;">Correct answer</h1>
 
+    //Next lesson
+
+    <a href="/Lesson/Index?lessonId=@Model.NextLessonId&courseId=@Model.CurrentCourseId&i=@Model.NextLessonIndex&lastLessn=@Model.IsLast&numberOfLessons=@Model.NumberOfLessons">Next lesson</a>
+
     <script>
+
+        var assignmentForm = document.querySelector("#assignmentForm");
+
+        assignmentForm.className = "hide";
 
         var x = document.getElementById("correct-answer");
 

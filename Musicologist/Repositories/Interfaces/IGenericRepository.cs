@@ -3,9 +3,10 @@ using System.Linq;
 
 namespace Musicologist.Repositories.Interfaces
 {
-    public interface ICourseRepository
+    public interface IGenericRepository
     {
         IQueryable<Course> GetCourses();
-        IQueryable<Course> GetCourse(int Id);
+        IQueryable<Course> GetCourseOverview(int Id);
+        IQueryable<Course> GetCourse(int courseId);
     }
 }

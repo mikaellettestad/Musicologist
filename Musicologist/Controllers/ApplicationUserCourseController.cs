@@ -19,7 +19,7 @@ namespace Musicologist.Controllers
         public ApplicationUserCourseController(UserManager<ApplicationUser> userManager, IApplicationUserCourseRepository repository)
         {
             _userManager = userManager;
-            _repository =repository;
+            _repository = repository;
             Model = new ApplicationUserCourseViewModel();
         }
         
@@ -48,7 +48,7 @@ namespace Musicologist.Controllers
 
         private ApplicationUserCourseViewModel GetDetails(int courseId)
         {
-            return _repository.GetCourse(courseId).Select(course => new ApplicationUserCourseViewModel
+            return _repository.GetCourseOverview(courseId).Select(course => new ApplicationUserCourseViewModel
             {
                 CurrentApplicationUserCourse = new ApplicationUserCourseViewModel.ApplicationUserCourse
                 {
@@ -83,7 +83,7 @@ namespace Musicologist.Controllers
 
         private bool CheckIfCourseIsAdded(string applicationUserId, int courseId)
         {
-            var result =_repository.GetApplicationUserCourse(applicationUserId, courseId).SingleOrDefault();
+            var result =_repository.GetCourseDetails(applicationUserId, courseId).SingleOrDefault();
 
             if (result != null)
                 return true;

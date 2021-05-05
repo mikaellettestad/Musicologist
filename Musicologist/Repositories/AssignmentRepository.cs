@@ -18,7 +18,7 @@ namespace Musicologist.Repositories
         //Service-klass
         public void UpdateApplicationUserAssignment(string applicationUserId, int assignmentId, bool isCompleted)
         {
-            var model = GetApplicationUserAssignment(applicationUserId, assignmentId).SingleOrDefault();
+            var model = GetAssignment(applicationUserId, assignmentId).SingleOrDefault();
 
             model.IsCompleted = isCompleted;
 
