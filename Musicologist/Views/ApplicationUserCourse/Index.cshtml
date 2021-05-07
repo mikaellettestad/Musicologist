@@ -1,6 +1,6 @@
 ﻿@model Musicologist.ViewModels.ApplicationUserCourseViewModel
 
-<h3>Continue where you left off...</h3>
+@*<h3>Continue where you left off...</h3>
 
 <h1>@Model.CurrentApplicationUserCourse.Title</h1>
 
@@ -8,64 +8,216 @@
 
 @{
     int i = 0;
+
+    int coursePartIndex = 0;
+
+    string GetHref(int coursePartIndex)
+    {
+        return "#collapse" + coursePartIndex;
+    }
+
+    string GetId(int coursePartIndex)
+    {
+        return "collapse" + coursePartIndex;
+    }
 }
 
-@if(Model.CurrentApplicationUserCourse.NumberOfLessons == Model.CurrentApplicationUserCourse.AssignmentsCompleted)
+@if (Model.CurrentApplicationUserCourse.NumberOfLessons == Model.CurrentApplicationUserCourse.AssignmentsCompleted)
 {
     <h1 style="color: green;">Congratulations! You've completed this course :)</h1>
-}
+}*@
 
-@foreach (var coursePart in Model.CurrentApplicationUserCourse.CourseParts)
-{
-    <h3>@coursePart.Title</h3>
-    <table>
-        @foreach (var lesson in coursePart.Lessons)
-        {
-            <tr>
-                @if (i < Model.CurrentApplicationUserCourse.AssignmentsCompleted)
-                {
-                    <td>
-                        <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId">
+@*@foreach (var coursePart in Model.CurrentApplicationUserCourse.CourseParts)
+    {
+        <h3>@coursePart.Title</h3>
+        <table>
+            @foreach (var lesson in coursePart.Lessons)
+            {
+                <tr>
+                    @if (i < Model.CurrentApplicationUserCourse.AssignmentsCompleted)
+                    {
+                        <td>
+                            <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId">
+                                <p>@lesson.Title</p>
+                            </a>
+                        </td>
+                        <td>
+                            <i style="color:green;" class="fas fa-check"></i>
+                        </td>
+                    }
+                    else if (i == Model.CurrentApplicationUserCourse.AssignmentsCompleted)
+                    {
+                        <td>
+                            @if ((i + 1) == Model.CurrentApplicationUserCourse.NumberOfLessons)
+                            {
+
+                                <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId&i=@i&lastLesson=true&numberOfLessons=@Model.CurrentApplicationUserCourse.NumberOfLessons">
+                                    <p>@lesson.Title</p>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId&i=@i&lastLesson=false&numberOfLessons=@Model.CurrentApplicationUserCourse.NumberOfLessons">
+                                    <p>@lesson.Title</p>
+                                </a>
+                            }
+                        </td>
+                        <td>
+                            <i style="color:grey;" class="fas fa-unlock"></i>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
                             <p>@lesson.Title</p>
-                        </a>
-                    </td>
-                    <td>
-                        <i style="color:green;" class="fas fa-check"></i>
-                    </td>
-                }
-                else if (i == Model.CurrentApplicationUserCourse.AssignmentsCompleted)
-                {
-                    <td>
-                        @if ((i + 1) == Model.CurrentApplicationUserCourse.NumberOfLessons)
-                        {
+                        </td>
+                        <td>
+                            <i style="color:grey;" class="fas fa-lock"></i>
+                        </td>
+                    }
+                </tr>
 
-                            <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId&i=@i&lastLesson=true&numberOfLessons=@Model.CurrentApplicationUserCourse.NumberOfLessons">
-                                <p>@lesson.Title</p>
-                            </a>
-                        }
-                        else
-                        {
-                            <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId&i=@i&lastLesson=false&numberOfLessons=@Model.CurrentApplicationUserCourse.NumberOfLessons">
-                                <p>@lesson.Title</p>
-                            </a>
-                        }
-                    </td>
-                    <td>
-                        <i style="color:grey;" class="fas fa-unlock"></i>
-                    </td>
-                }
-                else
-                {
-                    <td>
-                        <p>@lesson.Title</p>
-                    </td>
-                    <td>
-                        <i style="color:grey;" class="fas fa-lock"></i>
-                    </td>
-                }
-            </tr>
+                i++;
+            }
+        </table>
+    }*@
 
-            i++;
-        }
-    </table>
+
+
+@{
+    int i = 0;
+
+    int coursePartIndex = 0;
+
+    string GetHref(int coursePartIndex)
+    {
+        return "#collapse" + coursePartIndex;
+    }
+
+    string GetId(int coursePartIndex)
+    {
+        return "collapse" + coursePartIndex;
+    }
 }
+
+<div class="row">
+
+    @if (Model.CurrentApplicationUserCourse.NumberOfLessons == Model.CurrentApplicationUserCourse.AssignmentsCompleted)
+    {
+        <div class="col-xl-10">
+            <h1>@Model.CurrentApplicationUserCourse.Title</h1>
+
+            <h6>XP earned: @Model.CurrentApplicationUserCourse.XPEarned out of @Model.CurrentApplicationUserCourse.XPReward</h6>
+
+            <h3 style="color: green;">Congratulations! You've completed this course.</h3>
+        </div>
+
+        <div class="col-xl-2">
+            <img src="~/img/application-user-course-is-completed.jpg" />
+        </div>
+
+    }
+    else
+    {
+        <div class="col-xl-12">
+            <h1>@Model.CurrentApplicationUserCourse.Title</h1>
+        </div>
+
+        <div class="col-xl-12">
+            <h6>XP earned: @Model.CurrentApplicationUserCourse.XPEarned out of @Model.CurrentApplicationUserCourse.XPReward</h6>
+        </div>
+
+        <div class="col-xl-12">
+            <h3>Continue where you left off...</h3>
+        </div>
+    }
+
+
+    <div class="col-xl-12">
+
+        <div id="accordion">
+
+            @foreach (var coursePart in Model.CurrentApplicationUserCourse.CourseParts)
+            {
+                <div class="card">
+
+                    <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="@GetHref(coursePartIndex)">
+                            @coursePart.Title
+                        </a>
+                    </div>
+
+                    <div id="@GetId(coursePartIndex)" class="collapse" data-parent="#accordion">
+
+                        <div class="card-body">
+
+                            <table>
+                                @foreach (var lesson in coursePart.Lessons)
+                                {
+                                    @if (i < Model.CurrentApplicationUserCourse.AssignmentsCompleted)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId">
+                                                    @lesson.Title
+                                                </a>
+                                            </td>
+                                            <td>
+
+                                                <i style="color:green;" class="fas fa-check"></i>
+                                            </td>
+                                        </tr>
+
+                                    }
+                                    else if (i == Model.CurrentApplicationUserCourse.AssignmentsCompleted)
+                                    {
+
+                                        <tr>
+
+                                            @if ((i + 1) == Model.CurrentApplicationUserCourse.NumberOfLessons)
+                                            {
+                                                <td>
+                                                    <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId&i=@i&lastLesson=true&numberOfLessons=@Model.CurrentApplicationUserCourse.NumberOfLessons">
+                                                        @lesson.Title
+                                                    </a>
+
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    <a href="/Lesson/Index?lessonId=@lesson.Id&courseId=@Model.CurrentCourseId&i=@i&lastLesson=false&numberOfLessons=@Model.CurrentApplicationUserCourse.NumberOfLessons">
+                                                        @lesson.Title
+                                                    </a>
+                                                </td>
+
+                                            }
+
+                                            <td>
+                                                <i style="color:grey;" class="fas fa-unlock"></i>
+                                            </td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td>
+                                                <p>@lesson.Title</p>
+                                            </td>
+                                            <td>
+                                                <i style="color:grey;" class="fas fa-lock"></i>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                    i++;
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                coursePartIndex++;
+            }
+        </div>
+    </div>
+</div>
