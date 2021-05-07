@@ -14,6 +14,12 @@
     padding:10px;
 }
 
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .form-control {
     width:25vw;
 }
@@ -75,9 +81,9 @@ i {
 }*/
 
 .btn-success {
-    padding: 12.5px;
+/*    padding: 12.5px;
     padding-left: 182.5px;
-    padding-right: 182.5px;
+    padding-right: 182.5px;*/
 }
 
 .margin-bottom-25 {

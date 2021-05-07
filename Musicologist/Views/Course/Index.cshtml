@@ -2,7 +2,13 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @model Musicologist.ViewModels.CourseViewModel;
 
-<h1>Available courses:</h1>
+
+<div class="row">
+    <div class="col-xl-12">
+        <h1>Available courses:</h1>
+    </div>
+</div>
+
 
 @{ string route = ""; }
 
@@ -18,8 +24,8 @@
             route = "/Course/Details?courseId=" + course.Id;
         }
         <a href="@route">
-            <div class="course zoom col-12 col-sm-4 col-md-4 col-lg-4 box col-xl-4 box">
-                <img class="image-course" src="@course.ImageUrl">
+            <div class="course zoom col-lg-4">
+                <img class="course-image" src="@course.ImageUrl">
                 <div class="course-title">@course.Title</div>
             </div>
         </a>

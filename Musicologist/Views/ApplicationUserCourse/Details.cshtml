@@ -1,16 +1,33 @@
 ﻿@model Musicologist.ViewModels.ApplicationUserCourseViewModel
 
-<h1>@Model.CurrentApplicationUserCourse.Title</h1>
+<div class="row">
+    <div class="col-xl-6">
+        <h1>@Model.CurrentApplicationUserCourse.Title</h1>
+    </div>
+</div>
 
-<h3>@Model.CurrentApplicationUserCourse.Description</h3>
+<div class="row">
+    <div class="col-xl-6">
+        <h3>@Model.CurrentApplicationUserCourse.Description</h3>
+    </div>
+</div>
 
-<h3>Total XP: @Model.CurrentApplicationUserCourse.XPReward</h3>
+<div class="row">
+    <div class="col-xl-6">
+        <h3>Total XP: @Model.CurrentApplicationUserCourse.XPReward</h3>
+    </div>
+</div>
 
-@if (Model.CurrentApplicationUserCourse.IsAdded)
-{
-    <a href="/ApplicationUserCourse/Index?courseId=@Model.CurrentApplicationUserCourse.Id" class="btn btn-success">Continue course</a>
-}
-else
-{
-    <a href="/ApplicationUserCourse/AddCourse?courseId=@Model.CurrentApplicationUserCourse.Id" class="btn btn-success">Add to my courses</a>
-}
+
+<div class="row">
+    <div class="col-12 col-xl-12">
+        @if (Model.CurrentApplicationUserCourse.IsAdded)
+        {
+            <a href="/ApplicationUserCourse/Index?courseId=@Model.CurrentApplicationUserCourse.Id" class="btn btn-success btn-course-details">Continue course</a>
+        }
+        else
+        {
+            <a href="/ApplicationUserCourse/AddCourse?courseId=@Model.CurrentApplicationUserCourse.Id" class="btn btn-success btn-course-details">Add to my courses</a>
+        }
+    </div>
+</div>

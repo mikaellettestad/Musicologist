@@ -1,29 +1,31 @@
 ﻿@model Musicologist.ViewModels.ApplicationUserViewModel
 
 <div class="row margin-bottom-25">
-    <div class="col-sm-4 col-md-3 col-lg-2">
+    
+    <div class="col-xl-2">
         @* ================================================================================================ *@
         @* Hårdkodad profilbild *@
         <img src="/img/profile-picture-avatar-3.jpg" id="profile-image" class="img">
         @* ================================================================================================ *@
     </div>
-    <div class="col-sm-4 col-md-3 col-lg-10">
-        <div class="container">
-            <div class="row">
 
-                <div class="col-lg-3">
-                    <h3>@Model.UserName</h3>
-                </div>
+    <div class="col-xl-10">
 
-                <div class="col-lg-1">
-                    <a asp-area="Identity" asp-page="/Account/Manage/Index" class="btn btn-info">Edit</a>
-                </div>
+        <div class="row">
+            <div class="col-xl-3">
+                <a asp-area="Identity" asp-page="/Account/Manage/Index" class="btn btn-info">Edit</a>
             </div>
-            <div class="row">
+        </div>
+        
+        <div class="row">
+            <div class="col-xl-6">
+                <h3>@Model.UserName</h3>
+            </div>
+        </div>
 
-                <div class="col-lg-3">
-                    <h6>Total XP: @Model.XP</h6>
-                </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <h3>Total XP: @Model.XP</h3>
             </div>
         </div>
     </div>
@@ -37,7 +39,7 @@
     {
         <a class="course zoom col-lg-4" href="/ApplicationUserCourse/Index?courseId=@course.Id">
             <img class="course-image" src=@course.ImageUrl>
-            <div class="course-title">@course.Title IsCompleted: @course.IsCompleted</div>
+            <div class="course-title">@course.Title</div>
         </a>
     }
 </div>
