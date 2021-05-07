@@ -1,4 +1,12 @@
 ﻿.jumbotron {
     background-image: url(/img/musicologist-background.jpg);
     height:50vh;
+    padding:0;
+}
+
+@media only screen and (max-width: 576px) {
+
+    .jumbotron {
+        display:none;
+    }
 }

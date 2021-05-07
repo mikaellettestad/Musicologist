@@ -12,7 +12,7 @@
 
 @{ string route = ""; }
 
-<div class="row">
+<div class="row center">
     @foreach (var course in Model.Courses)
     {
         if (SignInManager.IsSignedIn(User))
@@ -23,11 +23,9 @@
         {
             route = "/Course/Details?courseId=" + course.Id;
         }
-        <a href="@route">
-            <div class="course zoom col-lg-4">
-                <img class="course-image" src="@course.ImageUrl">
-                <div class="course-title">@course.Title</div>
-            </div>
+        <a class="course zoom col-xl-3" href="@route">
+            <img class="course-image" src="@course.ImageUrl">
+            <div class="course-title">@course.Title</div>
         </a>
     }
 </div>

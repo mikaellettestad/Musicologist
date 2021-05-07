@@ -2,19 +2,19 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @model Musicologist.ViewModels.CourseViewModel;
 
-@{
-    ViewData["Title"] = "Home Page";
-}
-
-<div class="text-left">
-    <h1 class="display-4">M U S I C O L O G I S T</h1>
-</div>
-
-<h1>@ViewBag.Message</h1>
-
 @{ string route = ""; }
 
-<div class=" jumbotron jumbotron-fluid"></div>
+<div class="row">
+    <div class="col-xl-12">
+        <h1 class="display-3">M U S I C O L O G I S T</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class=" jumbotron jumbotron-fluid"></div>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-xl-12">
@@ -22,8 +22,8 @@
     </div>
 </div>
 
+<div class="row center">
 
-<div class="row">
     @foreach (var course in Model.Courses)
     {
         if (SignInManager.IsSignedIn(User))
@@ -34,9 +34,10 @@
         {
             route = "/Course/Details?courseId=" + course.Id;
         }
-        <a class="course zoom col-lg-4" href="@route">
-                <img class="course-image" src="@course.ImageUrl">
-                <div class="course-title">@course.Title</div>
+        <a class="course zoom col-12 col-xl-3" href="@route">
+            <img class="course-image" src="@course.ImageUrl">
+            <div class="course-title">@course.Title</div>
         </a>
     }
+
 </div>

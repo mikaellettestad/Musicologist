@@ -1,18 +1,10 @@
-﻿
-.hide {
+﻿.hide {
     display:none;
 }
-
 
 .center {
     margin-left: auto;
     margin-right: auto;
-}
-
-.row {
-    margin-right: 0px;
-    margin-left: 0px;
-    margin-bottom: 10px;
 }
 
 .zoom {
@@ -38,37 +30,33 @@
     color:whitesmoke;
 }
 
-/*body{background-color:cadetblue;}*/
-    .course-image {
-    width: 100%;
+.course-image {
+    /*position:relative;*/
+    width: 150%;
+    padding:0;
 }
 
 .course {
-    /*position: relative;*/
+    min-width: 25vw;
+    height: 20vw;
     padding: 0;
     overflow: hidden;
-    /*margin-bottom: 50px;*/
-    height:200px;
-    max-width:25vw;
-    /*width:200px;*/
-    margin-right:10px;
+    margin-right: 10px;
+    margin-bottom:10px;
 }
+
+@media only screen and (max-width: 576px) {
+
+    .course {
+        margin-right: 0px;
+        min-height: 30vh;
+    }
+}
+
+
 
 i {
     color: white;
-}
-
-/*.browse {
-    padding: 5px;
-    font-size: larger;
-    height: 50px;
-    width: 225px;
-}*/
-
-.btn-success {
-/*    padding: 12.5px;
-    padding-left: 182.5px;
-    padding-right: 182.5px;*/
 }
 
 .margin-bottom-25 {
@@ -95,7 +83,6 @@ a.navbar-brand {
     word-break: break-all;
 }
 
-/* Provide sufficient contrast against white background */
 a {
     color: #0366d6;
 }
@@ -111,7 +98,6 @@ a {
     background-color: #1b6ec2;
     border-color: #1861ac;
 }
-
 
 html {
     overflow-y: scroll;
@@ -137,8 +123,6 @@ html {
 footer {
     position: absolute;
     margin-top: 100px;
-    /*position: absolute;*/
-
     bottom:0;
     width: 100%;
 }
