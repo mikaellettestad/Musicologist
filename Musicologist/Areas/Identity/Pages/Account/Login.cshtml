@@ -5,23 +5,23 @@
     ViewData["Title"] = "Log in";
 }
 
-<div class="login-form-container">
+<div class="login-box">
     <div class="row">
-        <div class="col-xl-3"></div>
-        <div class="col-xl-3">
+        <div class="col-12 col-xl-3"></div>
+        <div class="col-12 col-xl-3">
             <h1>@ViewData["Title"]</h1>
             <section>
                 <form id="account" method="post">
-                    <hr />
+                    <hr class="hr-login"/>
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Input.Email"></label>
-                        <input asp-for="Input.Email" class="form-control" />
+                        <input asp-for="Input.Email" class="form-control input-login" />
                         <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Input.Password"></label>
-                        <input asp-for="Input.Password" class="form-control" />
+                        <input asp-for="Input.Password" class="form-control input-login" />
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Log in</button>
+                        <button type="submit" class="btn btn-primary btn-login">Log in</button>
                     </div>
                     <div class="form-group">
                         <p>
@@ -46,7 +46,7 @@
                 </form>
             </section>
         </div>
-        <div class="col-md-4"></div>
+        @*<div class="col-md-4"></div>*@
     </div>
 </div>
 
