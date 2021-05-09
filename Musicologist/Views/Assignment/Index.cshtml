@@ -1,84 +1,103 @@
 ﻿@model Musicologist.ViewModels.AssignmentViewModel
 
-<h1>Assignment</h1>
 
-<h3>@Model.CurrentAssignment.Title</h3>
+<div class="row">
+    <div class="col-xl-3">
+    </div>
 
-<h3>@Model.CurrentAssignment.Question</h3>
+    <div class="col-xl-6">
+        <h1>Assignment</h1>
 
-<div id="assignmentForm">
+        <h3>@Model.CurrentAssignment.Title</h3>
 
-    @foreach (var answer in Model.CurrentAssignment.Answers)
-    {
-    <form asp-controller="Assignment" asp-action="Index" method="post">
-        <input type="hidden" asp-for="@Model.NumberOfLessons" value="@Model.NumberOfLessons" />
-        <input type="hidden" asp-for="@Model.IsLast" value="@Model.IsLast" />
-        <input type="hidden" asp-for="@Model.NextLessonIndex" value="@Model.NextLessonIndex" />
-        <input type="hidden" asp-for="@Model.NextLessonId" value="@Model.NextLessonId" />
-        <input type="hidden" asp-for="@Model.CurrentCourseId" value="@Model.CurrentCourseId" />
-        <input type="hidden" asp-for="@Model.CurrentAssignment.Id" value="@Model.CurrentAssignment.Id" />
-        <input type="hidden" asp-for="@Model.CurrentAssignment.Id" value="@Model.CurrentAssignment.Id" />
-        <input type="hidden" asp-for="@Model.CurrentAnswer.IsCorrect" value="@answer.IsCorrect" />
-        <button type="submit" class="btn btn-success">@answer.Text</button>
-    </form>
-
-        <br />
-        <br />
-    }
+        <h3>@Model.CurrentAssignment.Question</h3>
+    </div>
+    <div class="col-xl-3"></div>
 </div>
 
-<audio id="incorrect-answer">
-    <source src="~/sounds/incorrect-answer.mp3" type="audio/mpeg">
-</audio>
+<div class="row">
+    <div class="col-xl-3">
+    </div>
+    <div class="col-12 col-xl-6">
 
-<audio id="correct-answer">
-    <source src="~/sounds/correct-answer.mp3" type="audio/mpeg">
-</audio>
 
-@if (Model.AnswerIsIncorrect)
-{
-    <h1 style="color: red;">Incorrect answer</h1>
+        <div id="assignmentForm">
 
-    <script>
+            @foreach (var answer in Model.CurrentAssignment.Answers)
+            {
+                <form asp-controller="Assignment" asp-action="Index" method="post">
+                    <input type="hidden" asp-for="@Model.NumberOfLessons" value="@Model.NumberOfLessons" />
+                    <input type="hidden" asp-for="@Model.IsLast" value="@Model.IsLast" />
+                    <input type="hidden" asp-for="@Model.NextLessonIndex" value="@Model.NextLessonIndex" />
+                    <input type="hidden" asp-for="@Model.NextLessonId" value="@Model.NextLessonId" />
+                    <input type="hidden" asp-for="@Model.CurrentCourseId" value="@Model.CurrentCourseId" />
+                    <input type="hidden" asp-for="@Model.CurrentAssignment.Id" value="@Model.CurrentAssignment.Id" />
+                    <input type="hidden" asp-for="@Model.CurrentAssignment.Id" value="@Model.CurrentAssignment.Id" />
+                    <input type="hidden" asp-for="@Model.CurrentAnswer.IsCorrect" value="@answer.IsCorrect" />
+                    <button type="submit" class="btn btn-success btn-answer text-left">@answer.Text</button>
+                </form>
 
-        var x = document.getElementById("incorrect-answer");
+                <br />
+            }
+        </div>
 
-        function playAudio() {
-            x.play();
+        <audio id="incorrect-answer">
+            <source src="~/sounds/incorrect-answer.mp3" type="audio/mpeg">
+        </audio>
+
+        <audio id="correct-answer">
+            <source src="~/sounds/correct-answer.mp3" type="audio/mpeg">
+        </audio>
+
+        @if (Model.AnswerIsIncorrect)
+        {
+            <h1 style="color: red;">Incorrect answer</h1>
+
+            <script>
+
+                var x = document.getElementById("incorrect-answer");
+
+                function playAudio() {
+                    x.play();
+                }
+
+                function pauseAudio() {
+                    x.pause();
+                }
+
+                playAudio();
+            </script>
         }
 
-        function pauseAudio() {
-            x.pause();
+        @if (Model.AnswerIsCorrect)
+        {
+            <h1 style="color: green;">Correct answer</h1>
+
+            //Next lesson
+
+            <a href="/Lesson/Index?lessonId=@Model.NextLessonId&courseId=@Model.CurrentCourseId&i=@Model.NextLessonIndex&lastLessn=@Model.IsLast&numberOfLessons=@Model.NumberOfLessons">Next lesson</a>
+
+            <script>
+
+                var assignmentForm = document.querySelector("#assignmentForm");
+
+                assignmentForm.className = "hide";
+
+                var x = document.getElementById("correct-answer");
+
+                function playAudio() {
+                    x.play();
+                }
+
+                function pauseAudio() {
+                    x.pause();
+                }
+
+                playAudio();
+            </script>
         }
 
-        playAudio();
-    </script>
-}
-
-@if (Model.AnswerIsCorrect)
-{
-    <h1 style="color: green;">Correct answer</h1>
-
-    //Next lesson
-
-    <a href="/Lesson/Index?lessonId=@Model.NextLessonId&courseId=@Model.CurrentCourseId&i=@Model.NextLessonIndex&lastLessn=@Model.IsLast&numberOfLessons=@Model.NumberOfLessons">Next lesson</a>
-
-    <script>
-
-        var assignmentForm = document.querySelector("#assignmentForm");
-
-        assignmentForm.className = "hide";
-
-        var x = document.getElementById("correct-answer");
-
-        function playAudio() {
-            x.play();
-        }
-
-        function pauseAudio() {
-            x.pause();
-        }
-
-        playAudio();
-    </script>
-}
+    </div>
+    <div class="col-xl-3">
+    </div>
+</div>

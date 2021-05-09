@@ -1,10 +1,18 @@
 ﻿.btn-course-details {
 
-    width:85vw;
+    width:33vw;
 }
 
 
-@media only screen and (min-width: 768px) and (max-width: 992px ) {
+@media only screen and (max-width: 576px) {
+    
+    .btn-course-details {
+        width: 85vw;
+        padding: 20px;
+    }
+}
+
+/*@media only screen and (min-width: 768px) and (max-width: 992px ) {
 
     .btn-course-details {
         width: 85vw;
@@ -15,13 +23,14 @@
 @media only screen and (min-width: 1200px) {
 
     .btn-course-details {
-        width: 35vw;
+        width: 33vw;
         padding: 20px;
     }
-}
+}*/
 
 
-/*@media only screen and (max-width: 576px) {
+/*
+@media only screen and (max-width: 576px) {
 
 }
 

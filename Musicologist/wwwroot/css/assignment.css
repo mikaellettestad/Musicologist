@@ -1,0 +1,12 @@
+﻿.btn-answer {
+    min-width: 33vw;
+    padding: 20px;
+}
+
+@media only screen and (max-width: 576px) {
+    .btn-answer {
+        min-width: 90vw;
+        max-width: 90vw;
+        padding: 20px;
+    }
+}
