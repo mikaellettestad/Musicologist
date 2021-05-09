@@ -1,4 +1,22 @@
-﻿.center {
+﻿.btn-musicologist-large {
+    width: 33vw;
+    padding: 20px;
+}
+
+/*.title {
+
+}*/
+
+@media only screen and (max-width: 576px) {
+
+    .btn-musicologist-large {
+        min-width: 90vw;
+        max-width: 90vw;
+        padding: 20px;
+    }
+}
+
+.center {
     margin-left: auto;
     margin-right: auto;
 }

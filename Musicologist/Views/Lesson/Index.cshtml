@@ -1,32 +1,44 @@
 ﻿@model Musicologist.ViewModels.LessonViewModel
 
-<h1>@Model.Title</h1>
+<div class="row">
 
-<h3>@Model.Description</h3>
+    <div class="col-12 col-xl-12">
 
-<h3>Lesson:</h3>
 
-@foreach (var text in Model.Texts)
-{
-    <h6>@text.Title</h6>
-    <p>@text.Text</p>
-}
+        <h1>@Model.Title</h1>
 
-<hr />
+        <h3>@Model.Description</h3>
 
-@if (Model.IsCompleted)
-{
-    <p class="btn btn-secondary">Assignment</p>
-    <i style="color:green;" class="fas fa-check"></i>
-}
-else
-{
-    if (Model.IsLastLesson)
-    {
-        <a href="/Assignment/Index?assignmentId=@Model.AssignmentId&courseId=@Model.CourseId&nextLessonId=@Model.NextLessonId&nextLessonIndex=@Model.NextLessonIndex&isLast=true" class="btn btn-success">Assignment</a>
-    }
-    else
-    {
-        <a href="/Assignment/Index?assignmentId=@Model.AssignmentId&courseId=@Model.CourseId&nextLessonId=@Model.NextLessonId&nextLessonIndex=@Model.NextLessonIndex&numberOfLessons=@Model.NumberOfLessons" class="btn btn-success">Assignment</a>
-    }
-}
+        <h3>Lesson:</h3>
+
+        @foreach (var text in Model.Texts)
+        {
+            <h6>@text.Title</h6>
+            <p>@text.Text</p>
+        }
+
+        <hr />
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-xl-12">
+
+        @if (Model.IsCompleted)
+        {
+            <p class="btn btn-secondary btn-musicologist-large">Assignment<i style="color:green;" class="fas fa-check"></i></p>
+        }
+        else
+        {
+            if (Model.IsLastLesson)
+            {
+                <a href="/Assignment/Index?assignmentId=@Model.AssignmentId&courseId=@Model.CourseId&nextLessonId=@Model.NextLessonId&nextLessonIndex=@Model.NextLessonIndex&isLast=true" class="btn btn-success">Assignment</a>
+            }
+            else
+            {
+                <a href="/Assignment/Index?assignmentId=@Model.AssignmentId&courseId=@Model.CourseId&nextLessonId=@Model.NextLessonId&nextLessonIndex=@Model.NextLessonIndex&numberOfLessons=@Model.NumberOfLessons" class="btn btn-success">Assignment</a>
+            }
+        }
+    </div>
+</div>

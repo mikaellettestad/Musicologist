@@ -31,17 +31,17 @@
 </div>
 
 
-<div class="row">
+<div class="row mb-5">
     <div class="col-xl-3">
     </div>
     <div class="col-12 col-xl-6">
         @if (Model.CurrentApplicationUserCourse.IsAdded)
         {
-            <a href="/ApplicationUserCourse/Index?courseId=@Model.CurrentApplicationUserCourse.Id" class="btn btn-success btn-application-user-course-details">Continue course</a>
+            <a href="/ApplicationUserCourse/Index?courseId=@Model.CurrentApplicationUserCourse.Id" class="btn btn-success btn-musicologist-large ma">Continue course</a>
         }
         else
         {
-            <a href="/ApplicationUserCourse/AddCourse?courseId=@Model.CurrentApplicationUserCourse.Id" class="btn btn-success btn-application-user-course-details">Add to my courses</a>
+            <a href="/ApplicationUserCourse/AddCourse?courseId=@Model.CurrentApplicationUserCourse.Id" class="btn btn-success btn-musicologist-large">Add to my courses</a>
         }
     </div>
     <div class="col-xl-3">

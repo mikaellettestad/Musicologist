@@ -4,7 +4,15 @@
     padding:0;
 }
 
+.graduation-hat {
+
+}
+
 @media only screen and (max-width: 576px) {
+
+    .title {
+        font-size: 28px;
+    }
 
     .jumbotron {
         display:none;
