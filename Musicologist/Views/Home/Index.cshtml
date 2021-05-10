@@ -34,10 +34,12 @@
         {
             route = "/Course/Details?courseId=" + course.Id;
         }
-        <a class="course zoom col-12 col-xl-3" href="@route">
-            <img class="course-image" src="@course.ImageUrl">
-            <div class="course-title">@course.Title</div>
-        </a>
+
+            <a class="course zoom col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3" href="@route">
+                <img class="course-image" src="@course.ImageUrl">
+                <div class="course-title">@course.Title</div>
+            </a>
+
     }
 
 </div>

@@ -12,3 +12,22 @@
         padding: 20px;
     }
 }
+
+.application-user-course {
+    min-width: 25vw;
+    height: 17.5vw;
+    padding: 0px;
+    overflow: hidden;
+    /*margin-left: auto;*/
+}
+
+
+@media only screen and (max-width: 600px) {
+
+    .application-user-course {
+        max-width: 90vw;
+        min-height: 33vh;
+/*        margin-left:10px;*/
+        /*margin: auto;*/
+    }
+}

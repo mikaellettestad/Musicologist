@@ -1,11 +1,11 @@
-﻿.btn-musicologist-large {
+﻿.hide {
+    display: none;
+}
+
+.btn-musicologist-large {
     width: 33vw;
     padding: 20px;
 }
-
-/*.title {
-
-}*/
 
 @media only screen and (max-width: 576px) {
 
@@ -19,4 +19,76 @@
 .center {
     margin-left: auto;
     margin-right: auto;
+}
+
+i {
+    color: white;
+}
+
+.margin-bottom-25 {
+    margin-bottom: 25px;
+}
+
+.margin-bottom-50 {
+    margin-bottom: 50px;
+}
+
+.margin-top-7 {
+    margin-top: 7px;
+}
+
+#profile-image {
+    border-radius: 50%;
+    width: 175px;
+    height: auto;
+}
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+html {
+    overflow-y: scroll;
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+footer {
+    position: absolute;
+    margin-top: 100px;
+    bottom: 0;
+    width: 100%;
 }
