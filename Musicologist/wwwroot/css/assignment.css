@@ -1,12 +1,52 @@
 ﻿.btn-answer {
-    min-width: 33vw;
+    min-width: 90vw;
+    max-width: 90vw;
     padding: 20px;
 }
 
-@media only screen and (max-width: 576px) {
+@media only screen and (min-width: 576px) {
     .btn-answer {
-        min-width: 90vw;
-        max-width: 90vw;
+        min-width: 66vw;
+        max-width: 66vw;
         padding: 20px;
     }
 }
+
+@media only screen and (min-width: 768px) {
+    .btn-answer {
+        min-width: 33vw;
+        max-width: 33vw;
+        padding: 20px;
+    }
+}
+
+/*@media only screen and (min-width: 500px) and (max-width: 600px) {
+
+    .btn-answer {
+        min-width: 66vw;
+        max-width: 66vw;
+        padding: 20px;
+    }
+}*/
+
+/*
+    @media only screen and (max-width: 576px) {
+}
+
+@media only screen and (min-width: 576px) and (max-width: 768px) {
+}
+
+@media only screen and (min-width: 768px) and (max-width: 992px ) {
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 992px ) {
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px ) {
+}
+
+@media only screen and (min-width: 1200px) {
+}
+
+*/

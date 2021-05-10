@@ -2,23 +2,23 @@
 
 
 <div class="row">
-    <div class="col-xl-3">
+    <div class="col-md-3 col-lg-3 col-xl-3">
     </div>
-
-    <div class="col-xl-6">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
         <h1>Assignment</h1>
 
         <h3>@Model.CurrentAssignment.Title</h3>
 
         <h3>@Model.CurrentAssignment.Question</h3>
     </div>
-    <div class="col-xl-3"></div>
+    <div class="col-md-3 col-lg-3 col-xl-3">
+    </div>
 </div>
 
 <div class="row">
-    <div class="col-xl-3">
+    <div class="col-md-3 col-lg-3 col-xl-3">
     </div>
-    <div class="col-12 col-xl-6">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
 
 
         <div id="assignmentForm">
@@ -73,8 +73,6 @@
         {
             <h1 style="color: green;">Correct answer</h1>
 
-            //Next lesson
-
             <a href="/Lesson/Index?lessonId=@Model.NextLessonId&courseId=@Model.CurrentCourseId&i=@Model.NextLessonIndex&lastLessn=@Model.IsLast&numberOfLessons=@Model.NumberOfLessons">Next lesson</a>
 
             <script>
@@ -98,6 +96,6 @@
         }
 
     </div>
-    <div class="col-xl-3">
+    <div class="col-md-3 col-lg-3 col-xl-3">
     </div>
 </div>
