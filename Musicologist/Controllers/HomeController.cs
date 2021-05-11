@@ -7,8 +7,8 @@ namespace Musicologist.Controllers
 {
     public class HomeController : CourseController
     {
-        private readonly IGenericRepository _repository;
-        public HomeController(IGenericRepository repository) : base(repository)
+        private readonly IApplicationRepository _repository;
+        public HomeController(IApplicationRepository repository) : base(repository)
         {
             _repository = repository;
         }

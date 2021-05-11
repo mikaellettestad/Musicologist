@@ -39,7 +39,6 @@ namespace Musicologist.Controllers
 
             Model.NextLessonIndex = i + 1;
 
-            //Blir fel när lektion inte finns
             Model.NextLessonId = _service.GetNextLessonId(courseId, i);
                 
             return View(Model);

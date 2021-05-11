@@ -2,30 +2,10 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @model Musicologist.ViewModels.CourseViewModel;
 
-
 <div class="row">
     <div class="col-xl-12">
         <h1>Available courses:</h1>
     </div>
 </div>
 
-
-@{ string route = ""; }
-
-<div class="row center">
-    @foreach (var course in Model.Courses)
-    {
-        if (SignInManager.IsSignedIn(User))
-        {
-            route = "/ApplicationUserCourse/Details?courseId=" + course.Id;
-        }
-        else
-        {
-            route = "/Course/Details?courseId=" + course.Id;
-        }
-        <a class="course zoom col-xl-3" href="@route">
-            <img class="course-image" src="@course.ImageUrl">
-            <div class="course-title">@course.Title</div>
-        </a>
-    }
-</div>
+<partial name="/Views/Shared/_CoursePartial.cshtml" model="@Model" />

@@ -35,7 +35,7 @@ namespace Musicologist
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddTransient<IApplicationUserRepository, ApplicationUserRepository>();
-            services.AddTransient<IGenericRepository, GenericRepository>();
+            services.AddTransient<IApplicationRepository, ApplicationRepository>();
             services.AddTransient<IAssignmentRepository, AssignmentRepository>();
             services.AddTransient<IApplicationUserCourseRepository, ApplicationUserCourseRepository>();
             services.AddTransient<ILessonRepository, LessonRepository>();
@@ -48,12 +48,13 @@ namespace Musicologist
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-            }
+                app.UseExceptionHandler("/error");
+            } 
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }

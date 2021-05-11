@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Musicologist.Repositories
 {
-    public class ApplicationUserRepository : GenericRepository, IApplicationUserRepository
+    public class ApplicationUserRepository : ApplicationRepository, IApplicationUserRepository
     {
         private readonly ApplicationDbContext _context;
 
