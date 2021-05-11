@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
-using System.Diagnostics;
 
 namespace Musicologist.Controllers
 {
@@ -21,11 +19,6 @@ namespace Musicologist.Controllers
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
