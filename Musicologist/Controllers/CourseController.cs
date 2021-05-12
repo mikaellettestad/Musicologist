@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Musicologist.Repositories.Interfaces;
+using Musicologist.ViewModels;
 
 namespace Musicologist.Controllers
 {
@@ -10,11 +11,17 @@ namespace Musicologist.Controllers
         public CourseController(IApplicationRepository repository) : base(repository)
         {
             _repository = repository;
+
+            Model = new CourseViewModel();
         }
 
         public IActionResult Details(int courseId)
         {
-            return View(GetDetails(courseId));
+            Model = GetDetails(courseId);
+
+            if (Model != null) { return View(Model); }
+
+            return new StatusCodeResult(404);
         }
     }
 }

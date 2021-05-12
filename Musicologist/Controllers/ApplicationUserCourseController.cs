@@ -34,16 +34,21 @@ namespace Musicologist.Controllers
 
         public IActionResult Details(int courseId)
         {
-            var CourseIsAdded = CheckIfCourseIsAdded(_userManager.GetUserId(User), courseId);
-
             var model = GetDetails(courseId);
 
-            if (CourseIsAdded)
-                model.CurrentApplicationUserCourse.IsAdded = true;
-            else
-                model.CurrentApplicationUserCourse.IsAdded = false;
+            if(model != null)
+            {
+                var CourseIsAdded = CheckIfCourseIsAdded(_userManager.GetUserId(User), courseId);
 
-            return View(model);
+                if (CourseIsAdded)
+                    model.CurrentApplicationUserCourse.IsAdded = true;
+                else
+                    model.CurrentApplicationUserCourse.IsAdded = false;
+
+                return View(model);
+            }
+
+            return new StatusCodeResult(404);
         }
 
         private ApplicationUserCourseViewModel GetDetails(int courseId)

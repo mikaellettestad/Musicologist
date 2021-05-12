@@ -62,7 +62,7 @@ namespace Musicologist
             } 
             else
             {
-                app.UseExceptionHandler();
+                app.UseStatusCodePagesWithRedirects("/Error/{0}");
                 
                 app.UseHsts();
             }
