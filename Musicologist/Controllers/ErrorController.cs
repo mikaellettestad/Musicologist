@@ -7,8 +7,6 @@ namespace ASPNETCoreMVC_Lab1.Controllers
         [Route("Error/{statusCode}")]
         public IActionResult HttpStatusCodeHandler(int statusCode)
         {
-            //Not implmemented
-
             return View("PageNotFound");
         }
 

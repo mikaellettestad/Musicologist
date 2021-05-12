@@ -1,0 +1,60 @@
+{
+	"Id": "",
+	"Title": "",
+	"Description": "",
+	"XP": "",
+	"ImageUrl": "",
+	"CourseParts": [
+		{
+			"Id": "1",
+			"Title": "",
+			"Description": "",
+			"Lessons": [
+				{
+					"Id": "",
+					"Title": "",
+					"Description": "",
+					"LessonTexts": [
+						{
+							"Id": "",
+							"Title": "",
+							"Text": ""
+						}
+					],
+					"LessonImages": [
+						{
+							"Id": "",
+							"Title": "",
+							"ImageUrl": ""
+						}
+					],
+					"Assignment": [
+						{
+							"Id": "",
+							"Title": "",
+							"Question": "",
+							"XPReward": "",
+							"Answers": [
+								{
+									"Id": "",
+									"Text": "",
+									"IsCorrect": ""
+								},
+								{
+									"Id": "",
+									"Text": "",
+									"IsCorrect": ""
+								},
+								{
+									"Id": "",
+									"Text": "",
+									"IsCorrect": ""
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
