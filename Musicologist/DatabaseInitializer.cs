@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Musicologist.Data;
 using Musicologist.Models;
+using System;
 using System.Linq;
 
 namespace Musicologist
@@ -55,6 +56,11 @@ namespace Musicologist
 					userManager.AddToRoleAsync(identityUser, role).Wait();
 				}
 			}
+		}
+
+		private void AddCourses(UserManager<ApplicationUser> userManager, string user, string role)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }
