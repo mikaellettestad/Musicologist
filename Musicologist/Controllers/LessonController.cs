@@ -26,23 +26,27 @@ namespace Musicologist.Controllers
         {
             Model = GetLesson(_userManager.GetUserId(User), lessonId);
 
-            Model.NumberOfLessons = numberOfLessons;
-
-            Model.CourseId = courseId;
-
-            if (lastLesson)
+            if(Model != null)
             {
-                Model.IsLastLesson = true;
+                Model.NumberOfLessons = numberOfLessons;
+
+                Model.CourseId = courseId;
+
+                if (lastLesson)
+                {
+                    Model.IsLastLesson = true;
+
+                    return View(Model);
+                }
+
+                Model.NextLessonIndex = i + 1;
+
+                Model.NextLessonId = _service.GetNextLessonId(courseId, i);
 
                 return View(Model);
             }
 
-            Model.NextLessonIndex = i + 1;
-
-            //Blir fel när lektion inte finns
-            Model.NextLessonId = _service.GetNextLessonId(courseId, i);
-                
-            return View(Model);
+            return new StatusCodeResult(404);
         }
 
         private LessonViewModel GetLesson(string applicationUserId, int lessonId)
@@ -65,14 +69,19 @@ namespace Musicologist.Controllers
                 AssignmentId = lesson.Assignment.Id
             }).SingleOrDefault();
 
-            var applicationUserAssignment = _repository.GetAssignment(applicationUserId, model.AssignmentId).SingleOrDefault();
+            if(model != null)
+            {
+                var applicationUserAssignment = _repository.GetAssignment(applicationUserId, model.AssignmentId).SingleOrDefault();
 
-            if (applicationUserAssignment != null)
-                model.IsCompleted = true;
-            else
-                model.IsCompleted = false;
+                if (applicationUserAssignment != null)
+                        model.IsCompleted = true;
+                    else
+                        model.IsCompleted = false;
 
-            return model;
+                    return model;                
+            }
+
+            return null;
         }
 
         private int GetNextLessonId()

@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace Musicologist.Repositories
 {
-    public class GenericRepository : IGenericRepository
+    public class ApplicationRepository : IApplicationRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public GenericRepository(ApplicationDbContext context)
+        public ApplicationRepository(ApplicationDbContext context)
         {
             _context = context;
         }

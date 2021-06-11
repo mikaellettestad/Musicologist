@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
 using Musicologist.ViewModels;
@@ -12,14 +11,12 @@ namespace Musicologist.Controllers
     [Authorize(Roles = "User")]
     public class ApplicationUserController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IApplicationUserRepository _repository;
         public ApplicationUserViewModel Model;
 
-        public ApplicationUserController(ILogger<HomeController> logger, UserManager<ApplicationUser> userManager, IApplicationUserRepository repository)
+        public ApplicationUserController(UserManager<ApplicationUser> userManager, IApplicationUserRepository repository)
         {
-            _logger = logger;
             _userManager = userManager;
             _repository = repository;
             Model = new ApplicationUserViewModel();

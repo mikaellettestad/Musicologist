@@ -1,14 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Musicologist.Models;
 using Musicologist.Repositories.Interfaces;
-using System.Diagnostics;
 
 namespace Musicologist.Controllers
 {
     public class HomeController : CourseController
     {
-        private readonly IGenericRepository _repository;
-        public HomeController(IGenericRepository repository) : base(repository)
+        private readonly IApplicationRepository _repository;
+        public HomeController(IApplicationRepository repository) : base(repository)
         {
             _repository = repository;
         }
@@ -21,11 +19,6 @@ namespace Musicologist.Controllers
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

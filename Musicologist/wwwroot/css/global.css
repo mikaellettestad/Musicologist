@@ -92,3 +92,15 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+#image-page-not-found{
+
+}
+
+@media only screen and (max-width: 576px) {
+
+    #image-page-not-found {
+
+        max-width:100vw;
+    }
+}
