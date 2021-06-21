@@ -1,11 +1,11 @@
-# Musicologist
+# Musicologist 1.0
 
 ### Requirements
 * Visual Studio (ASP .NET Core 3.1)
 * SQL Management Studio
 * Microsoft SQL Server
 
-### Setup
+### Setup (example courses will be available in next release)
 1. Clone repository
 2. Open solution
 3. Add appsettings.json:
