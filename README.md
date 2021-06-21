@@ -5,7 +5,7 @@
 * SQL Management Studio
 * Microsoft SQL Server
 
-### Setup (example courses will be available in next release)
+### Setup (example courses will be available in next version)
 1. Clone repository
 2. Open solution
 3. Add appsettings.json:
