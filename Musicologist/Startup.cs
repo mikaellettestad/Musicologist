@@ -16,9 +16,12 @@ namespace Musicologist
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
-            Configuration = configuration;
+
+            Configuration = new ConfigurationBuilder()
+            .AddUserSecrets<Program>()
+            .Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -27,7 +30,7 @@ namespace Musicologist
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration["ConnectionStrings:DefaultConnection"]));
             
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
