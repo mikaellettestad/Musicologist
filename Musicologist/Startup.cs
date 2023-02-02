@@ -16,7 +16,7 @@ namespace Musicologist
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IWebHostEnvironment env)
+        public Startup(IConfiguration configuration)
         {
 
             Configuration = new ConfigurationBuilder()
